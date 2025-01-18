@@ -107,11 +107,6 @@ void show_b_pawn_path(int b_pawn_initial_move[], int pawn_index, int row, int co
 
 void w_move_pawn(int pawn_index, int row, int column, int w_pawn_positions_current[], int old_row, int old_column, string chessboard[8][8])
 {
-    cout << "Moving white"<< endl;
-    cout << "old row: " << old_row;
-    cout << " old column:" << old_column;
-    cout << endl;
-
     if (chessboard[row][column] == "[*]")
     {
         chessboard[row][column] = w_pawn;
@@ -120,27 +115,24 @@ void w_move_pawn(int pawn_index, int row, int column, int w_pawn_positions_curre
         w_pawn_positions_current[pawn_index * 2 + 1] = column;
 
         // Resetting the original position
-        chessboard[old_row][old_column] = "[-]";
+        chessboard[old_row][old_column] = "[ ]";
 
-        if (chessboard[old_row - 1][old_column] == "[*]")
-        {
+        // Clearing the valid moves path
+
+        chessboard[old_row - 1][old_column] = "[ ]";
+        // Additional clearing move for the pawn if it is its original move 
+        if(chessboard[old_row - 2][old_column] == "[*]"){
             chessboard[old_row - 1][old_column] = "[ ]";
         }
-        // Additional clearing move for the pawn if it is its original move  - it will help in future as well when pawn has initial move
-        if (chessboard[old_row - 2][old_column] == "[*]")
-        {
-            chessboard[old_row - 2][old_column] = "[ ]";
-        }
+
     }
     else
     {
-        cout << "Invalid move position, Selected Piece cannot move there";
-        cout << endl;
+        cout << "Invalid move position!";
     }
 }
 void b_move_pawn(int pawn_index, int row, int column, int b_pawn_positions_current[], int old_row, int old_column, string chessboard[8][8])
 {
-    cout << "moving black" << endl;
     if (chessboard[row][column] == "[*]")
     {
         chessboard[row][column] = b_pawn;
@@ -168,10 +160,10 @@ void b_move_pawn(int pawn_index, int row, int column, int b_pawn_positions_curre
 
 int main()
 {
-    // int b_pawn_initial_move[8] = {1, 1, 1, 1, 1, 1, 1, 1};
-    // int w_pawn_initial_move[8] = {1, 1, 1, 1, 1, 1, 1, 1};
-    int w_pawn_initial_move[8] = {0, 0, 0, 0, 0, 0, 0, 0};
-    int b_pawn_initial_move[8] = {0, 0, 0, 0, 0, 0, 0, 0};
+    int b_pawn_initial_move[8] = {1, 1, 1, 1, 1, 1, 1, 1};
+    int w_pawn_initial_move[8] = {1, 1, 1, 1, 1, 1, 1, 1};
+    // int w_pawn_initial_move[8] = {0, 0, 0, 0, 0, 0, 0, 0};
+    // int b_pawn_initial_move[8] = {0, 0, 0, 0, 0, 0, 0, 0};
 
     // Chessboard with empty spaces
     string chessboard[8][8] = {
@@ -229,12 +221,12 @@ int main()
     }
 
     // Moving the pawn
-    string select = "h2";
+    string select = "c2";
     // Convert the address to index of chessboard that can be use to iterate the array
     int row = '8' - select[1];
     int column = toupper(select[0]) - 'A';
     int pawn_index; // Subtracting 8 to get 0 for first pawn
-    string move = "h4";
+    string move = "c3";
     // Convert the address to index of chessboard that can be use to iterate the array
     int Row = '8' - move[1];
     int Column = toupper(move[0]) - 'A';
@@ -242,19 +234,15 @@ int main()
     {
         if (w_pawn_positions[i * 2] == row && w_pawn_positions[i * 2 + 1] == column)
         {
-            cout << "WHIte pawn moving";
             pawn_index = i;
             show_w_pawn_path(w_pawn_initial_move, pawn_index, row, column, chessboard);
             w_move_pawn(pawn_index, Row, Column, w_pawn_positions_current, row, column, chessboard);
-            break;
         }
         if (b_pawn_positions[i * 2] == row && b_pawn_positions[i * 2 + 1] == column)
         {
             pawn_index = i;
-            cout << "black pawn moving";
             show_b_pawn_path(b_pawn_initial_move, pawn_index, row, column, chessboard);
             b_move_pawn(pawn_index, Row, Column, b_pawn_positions_current, row, column, chessboard);
-            break;
         }
     }
 
