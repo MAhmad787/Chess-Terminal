@@ -149,15 +149,16 @@ void b_move_pawn(int pawn_index, int row, int column, int b_pawn_positions_curre
         b_pawn_positions_current[pawn_index * 2 + 1] = column;
 
         // Resetting the original position
+        chessboard[old_row][old_column] = "[-]";
 
-        chessboard[old_row][old_column] = "[ ]";
-
-        // Clearing the valid moves path
-        chessboard[old_row + 1][old_column] = "[ ]";
-        // Additional clearing move for the pawn if it is its original move 
-        if(chessboard[old_row + 2][old_column] == "[*]"){
+        if (chessboard[old_row + 1][old_column] == "[*]")
+        {
             chessboard[old_row + 1][old_column] = "[ ]";
-            cout << "running";
+        }
+        // Additional clearing move for the pawn if it is its original move  - it will help in future as well when pawn has initial move
+        if (chessboard[old_row + 2][old_column] == "[*]")
+        {
+            chessboard[old_row + 2][old_column] = "[ ]";
         }
     }
     else
@@ -229,12 +230,12 @@ int main()
     }
 
     // Moving the pawn
-    string select = "h2";
+    string select = "h7";
     // Convert the address to index of chessboard that can be use to iterate the array
     int row = '8' - select[1];
     int column = toupper(select[0]) - 'A';
     int pawn_index; // Subtracting 8 to get 0 for first pawn
-    string move = "h4";
+    string move = "h5";
     // Convert the address to index of chessboard that can be use to iterate the array
     int Row = '8' - move[1];
     int Column = toupper(move[0]) - 'A';
