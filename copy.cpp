@@ -13,6 +13,10 @@ string chessboard[ROWS][COLUMNS];
 bool isPlaying = true;
 bool white = true; // White player starts the game
 bool black = false;
+bool white_select = true;
+bool black_select = false;
+bool white_move = true;
+bool black_move = false;
 
 // Variables to store the position of the selected piece
 int row;
@@ -82,7 +86,7 @@ int b_pawn_positions_current[16] = {1, 0, 1, 1, 1, 2, 1, 3, 1, 4, 1, 5, 1, 6, 1,
 
 void show_w_pawn_path(int w_pawn_initial_move[], int pawn_index, int row, int column, string chessboard[ROWS][COLUMNS])
 {
-    // cout << "Showing path for white pawn" << endl;
+    cout << "Showing path for white pawn" << endl;
     row--; // White pawns move upward
 
     // Check for the initial move (two squares forward allowed)
@@ -92,11 +96,29 @@ void show_w_pawn_path(int w_pawn_initial_move[], int pawn_index, int row, int co
         if (chessboard[row][column] == "[ ]")
         {
             chessboard[row][column] = "[*]";
+            // Piece has moved, so the initial move is no longer valid
+            w_pawn_initial_move[pawn_index] = 1;
+            // Piece moved, set the flag to false
+            white_select = false;
+        }
+        else
+        {
+            cout << "Invalid move position, Selected Piece cannot move there";
+            cout << endl;
+            // not moved keep flag true
+            white_select = true;
         }
         // Check two squares forward, but only if the first square is empty
         if (row - 1 >= 0 && chessboard[row - 1][column] == "[ ]" && chessboard[row][column] == "[*]")
         {
             chessboard[row - 1][column] = "[*]";
+        }
+        else
+        {
+            cout << "Invalid move position, Selected Piece cannot move there";
+            cout << endl;
+            // not moved keep flag true
+            white_select = true;
         }
     }
     else
@@ -105,13 +127,15 @@ void show_w_pawn_path(int w_pawn_initial_move[], int pawn_index, int row, int co
         if (chessboard[row][column] == "[ ]")
         {
             chessboard[row][column] = "[*]";
+            // Piece moved, set the flag to false
+            white_select = false;
         }
     }
 }
 
 void show_b_pawn_path(int b_pawn_initial_move[], int pawn_index, int row, int column, string chessboard[ROWS][COLUMNS])
 {
-    // cout << "Black pawn path" << endl;
+    cout << "Black pawn path" << endl;
     row++; // Black pawns move downward
 
     // Check for the initial move (two squares forward allowed)
@@ -140,6 +164,7 @@ void show_b_pawn_path(int b_pawn_initial_move[], int pawn_index, int row, int co
 
 void w_move_pawn(int pawn_index, int row, int column, int w_pawn_positions_current[], int old_row, int old_column, string chessboard[ROWS][COLUMNS])
 {
+    // white pawn moving forward
 
     if (chessboard[row][column] == "[*]")
     {
@@ -149,7 +174,7 @@ void w_move_pawn(int pawn_index, int row, int column, int w_pawn_positions_curre
         w_pawn_positions_current[pawn_index * 2 + 1] = column;
 
         // Resetting the original position
-        chessboard[old_row][old_column] = "[-]";
+        chessboard[old_row][old_column] = "[ ]";
 
         if (chessboard[old_row - 1][old_column] == "[*]")
         {
@@ -160,15 +185,20 @@ void w_move_pawn(int pawn_index, int row, int column, int w_pawn_positions_curre
         {
             chessboard[old_row - 2][old_column] = "[ ]";
         }
+        // Piece moved, set the flag to false
+        white_move = false;
     }
     else
     {
         cout << "Invalid move position, Selected Piece cannot move there";
         cout << endl;
+        // not moved keep flag true
+        white_move = true;
     }
 }
 void b_move_pawn(int pawn_index, int row, int column, int b_pawn_positions_current[], int old_row, int old_column, string chessboard[ROWS][COLUMNS])
 {
+    // Black pawn moving forward
     if (chessboard[row][column] == "[*]")
     {
         chessboard[row][column] = b_pawn;
@@ -309,111 +339,107 @@ int main()
         {
 
             cout << "White's Turn" << endl;
-            // Moving the pawn
-            string select;
+            // Selecting the pawn
             do
             {
-                cout << "Enter the position of the piece you want to move: ";
-                cin >> select;
-                // Convert the address to index of chessboard that can be use to iterate the array
-                row = '8' - select[1];
-                column = toupper(select[0]) - 'A';
-
-            } while (!validate_position(select, row, column));
-
-            // display_chessboard(ROWS, COLUMNS, chessboard);
-            cout << "Selected Piece: " << select << endl;
-            display_chessboard(ROWS, COLUMNS, chessboard);
-
-            do
-            {
-                string move;
-                cout << "Enter the position you want to move to: ";
-                cin >> move;
-                // Convert the address to index of chessboard that can be use to iterate the array
-                Row = '8' - move[1];
-                Column = toupper(move[0]) - 'A';
-
-            } while (!validate_position);
-
-            for (int i = 0; i < 16; i++)
-            {
-                if (w_pawn_positions[i * 2] == row && w_pawn_positions[i * 2 + 1] == column)
+                string select;
+                do
                 {
-                    pawn_index = i;
-                    show_w_pawn_path(w_pawn_initial_move, pawn_index, row, column, chessboard);
-                    w_move_pawn(pawn_index, Row, Column, w_pawn_positions_current, row, column, chessboard);
-                    break;
-                }
-                if (b_pawn_positions[i * 2] == row && b_pawn_positions[i * 2 + 1] == column)
+                    cout << "Enter the position of the piece you want to move: ";
+                    cin >> select;
+                    // Convert the address to index of chessboard that can be use to iterate the array
+                    row = '8' - select[1];
+                    column = toupper(select[0]) - 'A';
+
+                } while (!validate_position(select, row, column));
+
+                // display_chessboard(ROWS, COLUMNS, chessboard);
+                cout << "Selected Piece: " << select << endl;
+                for (int i = 0; i < 16; i++)
                 {
-                    pawn_index = i;
-                    show_b_pawn_path(b_pawn_initial_move, pawn_index, row, column, chessboard);
-                    b_move_pawn(pawn_index, Row, Column, b_pawn_positions_current, row, column, chessboard);
-                    break;
+                    if (w_pawn_positions[i * 2] == row && w_pawn_positions[i * 2 + 1] == column)
+                    {
+                        pawn_index = i;
+
+                        show_w_pawn_path(w_pawn_initial_move, pawn_index, row, column, chessboard);
+                        break;
+                    }
                 }
+                display_chessboard(ROWS, COLUMNS, chessboard);
             }
-            // Printing the chessboard with position labels
-            display_chessboard(ROWS, COLUMNS, chessboard);
+            while (white_select);
+            do{
+
+                do
+                {
+                    string move;
+                    cout << "Enter the position you want to move to: ";
+                    cin >> move;
+                    // Convert the address to index of chessboard that can be use to iterate the array
+                    Row = '8' - move[1];
+                    Column = toupper(move[0]) - 'A';
+
+                } while (!validate_position);
+
+                // Moving the pawn
+                w_move_pawn(pawn_index, Row, Column, w_pawn_positions_current, row, column, chessboard);
+            }while(white_move);
+                // Printing the chessboard with position labels
+                display_chessboard(ROWS, COLUMNS, chessboard);
 
             // Setting the flag for the next player
             white = false;
             black = true;
         }
-        else if (black)
-        {
-            cout << "Black's Turn" << endl;
+        // else if (black)
+        // {
+        //     cout << "Black's Turn" << endl;
 
-            // Moving the pawn
-            string select;
-            do
-            {
-                cout << "Enter the position of the piece you want to move: ";
-                cin >> select;
-                // Convert the address to index of chessboard that can be use to iterate the array
-                row = '8' - select[1];
-                column = toupper(select[0]) - 'A';
+        //     string select;
+        //     do
+        //     {
+        //         cout << "Enter the position of the piece you want to move: ";
+        //         cin >> select;
+        //         // Convert the address to index of chessboard that can be use to iterate the array
+        //         row = '8' - select[1];
+        //         column = toupper(select[0]) - 'A';
 
-            } while (!validate_position(select, row, column));
+        //     } while (!validate_position(select, row, column));
 
-            display_chessboard(ROWS, COLUMNS, chessboard);
-            cout << "Selected Piece: " << select << endl;
+        //     // display_chessboard(ROWS, COLUMNS, chessboard);
+        //     cout << "Selected Piece: " << select << endl;
+        //     for (int i = 0; i < 16; i++)
+        //     {
+        //         if (b_pawn_positions[i * 2] == row && b_pawn_positions[i * 2 + 1] == column)
+        //         {
+        //             pawn_index = i;
 
-            do
-            {
-                string move;
-                cout << "Enter the position you want to move to: ";
-                cin >> move;
-                // Convert the address to index of chessboard that can be use to iterate the array
-                Row = '8' - move[1];
-                Column = toupper(move[0]) - 'A';
+        //             show_b_pawn_path(b_pawn_initial_move, pawn_index, row, column, chessboard);
+        //             break;
+        //         }
+        //     }
+        //     display_chessboard(ROWS, COLUMNS, chessboard);
 
-            } while (!validate_position);
-            // Printing the chessboard with position labels
-            display_chessboard(ROWS, COLUMNS, chessboard);
-            for (int i = 0; i < 16; i++)
-            {
-                if (w_pawn_positions[i * 2] == row && w_pawn_positions[i * 2 + 1] == column)
-                {
-                    pawn_index = i;
-                    show_w_pawn_path(w_pawn_initial_move, pawn_index, row, column, chessboard);
-                    w_move_pawn(pawn_index, Row, Column, w_pawn_positions_current, row, column, chessboard);
-                    break;
-                }
-                if (b_pawn_positions[i * 2] == row && b_pawn_positions[i * 2 + 1] == column)
-                {
-                    pawn_index = i;
-                    show_b_pawn_path(b_pawn_initial_move, pawn_index, row, column, chessboard);
-                    b_move_pawn(pawn_index, Row, Column, b_pawn_positions_current, row, column, chessboard);
-                    break;
-                }
-            }
-            display_chessboard(ROWS, COLUMNS, chessboard);
+        //     do
+        //     {
+        //         string move;
+        //         cout << "Enter the position you want to move to: ";
+        //         cin >> move;
+        //         // Convert the address to index of chessboard that can be use to iterate the array
+        //         Row = '8' - move[1];
+        //         Column = toupper(move[0]) - 'A';
 
-            // Seting the flag for the next player
-            black = false;
-            white = true;
-        }
+        //     } while (!validate_position);
+
+        //     // Moving the pawn
+        //     b_move_pawn(pawn_index, Row, Column, b_pawn_positions_current, row, column, chessboard);
+        //     // Printing the chessboard with position labels
+        //     display_chessboard(ROWS, COLUMNS, chessboard);
+
+        //     // Setting the flag for the next player
+        //     black = false;
+        //     white = true;
+        // }
 
         else
         {
