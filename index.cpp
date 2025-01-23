@@ -5,6 +5,7 @@ using namespace std;
 // Fixed size for the chessboard
 const int ROWS = 8;
 const int COLUMNS = 8;
+const int PIECES = 6;
 
 // Declare the Chessboard
 string chessboard[ROWS][COLUMNS];
@@ -47,6 +48,13 @@ string b_rook = "b_R";   // Black Rook
 string b_knight = "b_H"; // Black Knight
 string b_bishop = "b_B"; // Black Bishop
 string b_pawn = "b_P";   // Black Pawn
+
+// Pointer arrays
+// For White Pieces
+string *white_pieces[PIECES] = {&w_king, &w_queen, &w_rook, &w_knight, &w_bishop, &w_pawn};
+
+// For Black Pieces
+string *black_pieces[PIECES] = {&b_king, &b_queen, &b_rook, &b_knight, &b_bishop, &b_pawn};
 
 // int b_pawn_initial_move[8] = {1, 1, 1, 1, 1, 1, 1, 1};
 // int w_pawn_initial_move[8] = {1, 1, 1, 1, 1, 1, 1, 1};
@@ -331,6 +339,62 @@ bool validate_position(string position, int row, int column)
     return true;
 }
 
+// Capture pieces
+void capture_piece_pawn(string chessboard[ROWS][COLUMNS], char color, int row, int column)
+{
+    string king;
+    char operation;
+    switch (color)
+    {
+    case 'w':
+        king = w_king;
+        operation = '-';
+        break;
+    case 'b':
+        king = b_king;
+        operation = '+';
+        break;
+
+    default:
+        break;
+    }
+
+    // Left diagonal
+    if(operation == '-'){ row--; }
+    else if(operation == '+'){ row++; }
+    for (int i = 0; i < PIECES; i++)
+    {
+        if (chessboard[row][column - 1] == *black_pieces[i] && chessboard[row - 1][column - 1] != king && chessboard[row][column - 1] != "[ ]") 
+        {
+            cout << color << "Can capture in the left diagonal" << endl;
+            break;
+        }
+    }
+        // Right diagonal
+    for (int i = 0; i < PIECES; i++)
+    {
+        if (chessboard[row][column + 1] == *black_pieces[i] && chessboard[row - 1][column + 1] != king)
+        {
+            cout << color << "Can capture in the right diagonal" << endl;
+            break;
+        }
+    }
+}
+// Capture pieces
+void checkmate_pawn(string chessboard[ROWS][COLUMNS], int row, int column)
+{
+    if (chessboard[row][column] == w_king)
+    {
+        cout << "Black wins" << endl;
+        isPlaying = false;
+    }
+    else if (chessboard[row][column] == b_king)
+    {
+        cout << "White wins" << endl;
+        isPlaying = false;
+    }
+}
+
 int main()
 {
 
@@ -375,6 +439,7 @@ int main()
                         // Showing the path for the selected white pawn
                         is_valid_selection = true;
                         show_w_pawn_path(w_pawn_initial_move, pawn_index, row, column, chessboard);
+                        capture_piece_pawn(chessboard, 'w', row, column);
                         break;
                     }
                 }
@@ -445,6 +510,7 @@ int main()
                         is_valid_selection = true;
                         // Showing the path for the selected black pawn
                         show_b_pawn_path(b_pawn_initial_move, pawn_index, row, column, chessboard);
+                        capture_piece_pawn(chessboard, 'b', row, column);
                         break;
                     }
                 }
