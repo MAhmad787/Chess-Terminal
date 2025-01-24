@@ -1,5 +1,6 @@
 #include <iostream>
 using namespace std;
+
 // Fixed size for the chessboard
 const int ROWS = 8;
 const int COLUMNS = 8;
@@ -14,7 +15,7 @@ int w_queen_position[1][2] = {{7, 3}};          // D1
 int w_bishop_position[2][2] = {{7, 2}, {7, 5}}; // C1, F1
 int w_rook_position[2][2] = {{7, 0}, {7, 7}};   // A1, H1
 int w_knight_position[2][2] = {{7, 1}, {7, 6}}; // B1, G1
-int w_pawn_positions[8][2] = {                  // A2-H2
+int w_pawn_position[8][2] = {                  // A2-H2
     {6, 0},
     {6, 1},
     {6, 2},
@@ -30,7 +31,7 @@ int b_queen_position[1][2] = {{0, 3}};          // D8
 int b_bishop_position[2][2] = {{0, 2}, {0, 5}}; // C8, F8
 int b_rook_position[2][2] = {{0, 0}, {0, 7}};   // A8, H8
 int b_knight_position[2][2] = {{0, 1}, {0, 6}}; // B8, G8
-int b_pawn_positions[8][2] = {                  // A7-H7
+int b_pawn_position[8][2] = {                  // A7-H7
     {1, 0},
     {1, 1},
     {1, 2},
@@ -47,13 +48,14 @@ struct chessPiece
     char color;
     int row;
     int column;
-    bool isAlive;
+    bool isAlive = true;
     int movesCounter = 0;
     bool isKing = false;
     void showPath();
     void move();
     void capture();
 };
+
 // Declaring the chess pieces
 // White Pieces
 chessPiece w_king;
@@ -83,7 +85,12 @@ void initializePieces(chessPiece &w_king, chessPiece &w_queen, chessPiece w_bish
         w_bishop[i] = {"bishop", 'w', w_bishop_position[i][0], w_bishop_position[i][1], true, 0};
         w_rook[i] = {"rook", 'w', w_rook_position[i][0], w_rook_position[i][1], true, 0};
         w_knight[i] = {"knight", 'w', w_knight_position[i][0], w_knight_position[i][1], true, 0};
-    };
+    }; 
+
+    for (int i = 0; i < 8; i++){
+        w_pawn[i] = {"pawn", 'w', w_pawn_position[i][0], w_pawn_position[i][1], true, 0};
+    }
+
 
     // Black Pieces
     b_king = {"king", 'b', b_king_position[0][0], b_king_position[0][1], true, 0, true};
@@ -92,6 +99,9 @@ void initializePieces(chessPiece &w_king, chessPiece &w_queen, chessPiece w_bish
         b_bishop[i] = {"bishop", 'b', b_bishop_position[i][0], b_bishop_position[i][1], true, 0};
         b_rook[i] = {"rook", 'b', b_rook_position[i][0], b_rook_position[i][1], true, 0};
         b_knight[i] = {"knight", 'b', b_knight_position[i][0], b_knight_position[i][1], true, 0};
+    }
+    for (int i = 0; i < 8; i++){
+        b_pawn[i] = {"pawn", 'b', b_pawn_position[i][0], b_pawn_position[i][1], true, 0};
     }
 }
 
@@ -124,7 +134,7 @@ void place_pieces(string chessboard[ROWS][COLUMNS], chessPiece &w_king, chessPie
     }
 }
 
-void generate_chessboard(int rows, int columns, string chessboard[ROWS][COLUMNS])
+void generate_chessboard(string chessboard[ROWS][COLUMNS])
 {
     // Chessboard with empty spaces
     for (int i = 0; i < ROWS; i++)
@@ -135,6 +145,7 @@ void generate_chessboard(int rows, int columns, string chessboard[ROWS][COLUMNS]
         }
     }
 }
+// zubair.name = "zubair yaqoob";
 void display_chessboard(int row, int column, string chessboard[ROWS][COLUMNS])
 {
     for (int i = 0; i < row; i++)
@@ -153,7 +164,7 @@ void display_chessboard(int row, int column, string chessboard[ROWS][COLUMNS])
 int main()
 {
     // Generate the Empty Chessboard
-    generate_chessboard(ROWS, COLUMNS, chessboard);
+    generate_chessboard(chessboard);
 
     // Initialize the chess pieces
     initializePieces(w_king, w_queen, w_bishop, w_rook, w_knight, w_pawn, b_king, b_queen, b_bishop, b_rook, b_knight, b_pawn);
@@ -166,6 +177,6 @@ int main()
     display_chessboard(ROWS, COLUMNS, chessboard);
 
 
-    cout << "White King: " << w_king.row << " " << w_king.column << endl;
+    cout << "White King: " << b_king.row << " " << w_king.column << endl;
     return 0;
 }
