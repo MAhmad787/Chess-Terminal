@@ -237,9 +237,12 @@ void selectPiece(int row, int column, string &pieceName, char &pieceColor, int &
         {
             if (w_pawn[i].row == row && w_pawn[i].column == column)
             {
-                pieceName = w_pawn[i].name;
-                pieceColor = w_pawn[i].color;
-                pieceIndex = w_pawn[i].index;
+                if (w_pawn[i].isAlive)
+                {
+                    pieceName = w_pawn[i].name;
+                    pieceColor = w_pawn[i].color;
+                    pieceIndex = w_pawn[i].index;
+                }
             }
         }
         // For rook, bishop or knight is being selected
@@ -247,21 +250,30 @@ void selectPiece(int row, int column, string &pieceName, char &pieceColor, int &
         {
             if (w_rook[i].row == row && w_rook[i].column == column)
             {
-                pieceName = w_rook[i].name;
-                pieceColor = w_rook[i].color;
-                pieceIndex = w_rook[i].index;
+                if (w_rook[i].isAlive)
+                {
+                    pieceName = w_rook[i].name;
+                    pieceColor = w_rook[i].color;
+                    pieceIndex = w_rook[i].index;
+                }
             }
             if (w_bishop[i].row == row && w_bishop[i].column == column)
             {
-                pieceName = w_bishop[i].name;
-                pieceColor = w_bishop[i].color;
-                pieceIndex = w_bishop[i].index;
+                if (w_bishop[i].isAlive)
+                {
+                    pieceName = w_bishop[i].name;
+                    pieceColor = w_bishop[i].color;
+                    pieceIndex = w_bishop[i].index;
+                }
             }
             if (w_knight[i].row == row && w_knight[i].column == column)
             {
-                pieceName = w_knight[i].name;
-                pieceColor = w_knight[i].color;
-                pieceIndex = w_knight[i].index;
+                if (w_knight[i].isAlive)
+                {
+                    pieceName = w_knight[i].name;
+                    pieceColor = w_knight[i].color;
+                    pieceIndex = w_knight[i].index;
+                }
             }
         }
     }
@@ -278,19 +290,26 @@ void selectPiece(int row, int column, string &pieceName, char &pieceColor, int &
         }
         else if (b_queen.row == row && b_queen.column == column)
         {
-            pieceName = b_queen.name;
-            pieceColor = b_queen.color;
-            pieceIndex = b_queen.index;
+            if (b_queen.isAlive)
+            {
+                pieceName = b_queen.name;
+                pieceColor = b_queen.color;
+                pieceIndex = b_queen.index;
+            }
         }
 
         // If pawn is being selected
         for (int i = 0; i < 8; i++)
         {
+
             if (b_pawn[i].row == row && b_pawn[i].column == column)
             {
-                pieceName = b_pawn[i].name;
-                pieceColor = b_pawn[i].color;
-                pieceIndex = b_pawn[i].index;
+                if (b_pawn[i].isAlive)
+                {
+                    pieceName = b_pawn[i].name;
+                    pieceColor = b_pawn[i].color;
+                    pieceIndex = b_pawn[i].index;
+                }
             }
         }
         // For rook, bishop or knight is being selected
@@ -298,21 +317,30 @@ void selectPiece(int row, int column, string &pieceName, char &pieceColor, int &
         {
             if (b_rook[i].row == row && b_rook[i].column == column)
             {
-                pieceName = b_rook[i].name;
-                pieceColor = b_rook[i].color;
-                pieceIndex = b_rook[i].index;
+                if (b_rook[i].isAlive)
+                {
+                    pieceName = b_rook[i].name;
+                    pieceColor = b_rook[i].color;
+                    pieceIndex = b_rook[i].index;
+                }
             }
             if (b_bishop[i].row == row && b_bishop[i].column == column)
             {
-                pieceName = b_bishop[i].name;
-                pieceColor = b_bishop[i].color;
-                pieceIndex = b_bishop[i].index;
+                if (b_bishop[i].isAlive)
+                {
+                    pieceName = b_bishop[i].name;
+                    pieceColor = b_bishop[i].color;
+                    pieceIndex = b_bishop[i].index;
+                }
             }
             if (b_knight[i].row == row && b_knight[i].column == column)
             {
-                pieceName = b_knight[i].name;
-                pieceColor = b_knight[i].color;
-                pieceIndex = b_knight[i].index;
+                if (b_knight[i].isAlive)
+                {
+                    pieceName = b_knight[i].name;
+                    pieceColor = b_knight[i].color;
+                    pieceIndex = b_knight[i].index;
+                }
             }
         }
     }
