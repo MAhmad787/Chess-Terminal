@@ -16,9 +16,9 @@ bool isWhiteMoving;
 bool isBlackMoving;
 
 // Variables for indentifing
-string pieceName;
-char pieceColor;
-int pieceIndex;
+string pieceName = "";
+char pieceColor = ' ';
+int pieceIndex = 0;
 
 // Coodinates
 int rowForSelection;
@@ -78,11 +78,6 @@ struct chessPiece
     void canCapture();
 };
 
-void chessPiece::showPath()
-{
-    cout << "hello " << name;
-}
-
 // Declaring the chess pieces
 // White Pieces
 chessPiece w_king;
@@ -136,6 +131,178 @@ void initializePieces(chessPiece &w_king, chessPiece &w_queen, chessPiece w_bish
 
 // Function Prototypes
 
+void chessPiece::showPath()
+{
+    // Show path for white pieces
+    if (name == "king" && color == 'w')
+    {
+        cout << "Showing Path for King" << endl;
+        // Todo >>>>>>>>>>>>>>>>
+
+        // Resetting the pieceName, pieceColor and pieceIndex
+        pieceName = "";
+        pieceColor = ' ';
+        pieceIndex = 0;
+    }
+    else if (name == "queen" && color == 'w')
+    {
+        cout << "Showing Path for Queen" << endl;
+        // Todo >>>>>>>>>>>>>>>>
+        // Resetting the pieceName, pieceColor and pieceIndex
+        pieceName = "";
+        pieceColor = ' ';
+        pieceIndex = 0;
+    }
+    else if (name == "bishop" && color == 'w')
+    {
+        for (int i = 0; i < 2; i++)
+        {
+            if (w_bishop[i].index == pieceIndex)
+            {
+                cout << "Showing Path for Bishop" << i + 1 << endl;
+                // Todo >>>>>>>>>>>>>
+                // Resetting the pieceName, pieceColor and pieceIndex
+                pieceName = "";
+                pieceColor = ' ';
+                pieceIndex = 0;
+                break;
+            }
+        }
+    }
+    else if (name == "rook" && color == 'w')
+    {
+        for (int i = 0; i < 2; i++)
+        {
+            if (w_rook[i].index == pieceIndex)
+            {
+                cout << "Showing Path for Rook" << i + 1 << endl;
+                // Todo >>>>>>>>>>>>>
+                // Resetting the pieceName, pieceColor and pieceIndex
+                pieceName = "";
+                pieceColor = ' ';
+                pieceIndex = 0;
+                break;
+            }
+        }
+    }
+    else if (name == "knight" && color == 'w')
+    {
+        for (int i = 0; i < 2; i++)
+        {
+            if (w_knight[i].index == pieceIndex)
+            {
+                cout << "Showing Path for Knight" << i + 1 << endl;
+                // Todo >>>>>>>>>>>>>
+                // Resetting the pieceName, pieceColor and pieceIndex
+                pieceName = "";
+                pieceColor = ' ';
+                pieceIndex = 0;
+                break;
+            }
+        }
+    }
+    else if (name == "pawn" && color == 'w')
+    {
+        for (int i = 0; i < 8; i++)
+        {
+            if (w_pawn[i].index == pieceIndex)
+            {
+                cout << "Showing Path for Pawn" << i + 1 << endl;
+                // Todo >>>>>>>>>>>>>
+                // Resetting the pieceName, pieceColor and pieceIndex
+                pieceName = "";
+                pieceColor = ' ';
+                pieceIndex = 0;
+                break;
+            }
+        }
+    }
+
+    // Show path for black pieces
+    if (name == "king" && color == 'b')
+    {
+        cout << "Showing Path for King" << endl;
+        // Todo >>>>>>>>>>>>>>>>
+
+        // Resetting the pieceName, pieceColor and pieceIndex
+        pieceName = "";
+        pieceColor = ' ';
+        pieceIndex = 0;
+    }
+    else if (name == "queen" && color == 'b')
+    {
+        cout << "Showing Path for Queen" << endl;
+        // Todo >>>>>>>>>>>>>>>>
+        // Resetting the pieceName, pieceColor and pieceIndex
+        pieceName = "";
+        pieceColor = ' ';
+        pieceIndex = 0;
+    }
+    else if (name == "bishop" && color == 'b')
+    {
+        for (int i = 0; i < 2; i++)
+        {
+            if (b_bishop[i].index == pieceIndex)
+            {
+                cout << "Showing Path for Bishop" << i + 1 << endl;
+                // Todo >>>>>>>>>>>>>
+                // Resetting the pieceName, pieceColor and pieceIndex
+                pieceName = "";
+                pieceColor = ' ';
+                pieceIndex = 0;
+                break;
+            }
+        }
+    }
+    else if (name == "rook" && color == 'b')
+    {
+        for (int i = 0; i < 2; i++)
+        {
+            if (b_rook[i].index == pieceIndex)
+            {
+                cout << "Showing Path for Rook" << i + 1 << endl;
+                // Todo >>>>>>>>>>>>>
+                // Resetting the pieceName, pieceColor and pieceIndex
+                pieceName = "";
+                pieceColor = ' ';
+                pieceIndex = 0;
+                break;
+            }
+        }
+    }
+    else if (name == "knight" && color == 'b')
+    {
+        for (int i = 0; i < 2; i++)
+        {
+            if (b_knight[i].index == pieceIndex)
+            {
+                cout << "Showing Path for Knight" << i + 1 << endl;
+                // Todo >>>>>>>>>>>>>
+                // Resetting the pieceName, pieceColor and pieceIndex
+                pieceName = "";
+                pieceColor = ' ';
+                pieceIndex = 0;
+                break;
+            }
+        }
+    }
+    else if (name == "pawn" && color == 'b')
+    {
+        for (int i = 0; i < 8; i++)
+        {
+            if (b_pawn[i].index == pieceIndex)
+            {
+                cout << "Showing Path for Pawn" << i + 1 << endl;
+                // Todo >>>>>>>>>>>>>
+                // Resetting the pieceName, pieceColor and pieceIndex
+                pieceName = "";
+                pieceColor = ' ';
+                pieceIndex = 0;
+                break;
+            }
+        }
+    }
+}
 // Place the pieces on the chessboard
 void place_pieces(string chessboard[ROWS][COLUMNS], chessPiece &w_king, chessPiece &w_queen, chessPiece w_bishop[], chessPiece w_rook[], chessPiece w_knight[], chessPiece w_pawn[], chessPiece &b_king, chessPiece &b_queen, chessPiece b_bishop[], chessPiece b_rook[], chessPiece b_knight[], chessPiece b_pawn[])
 {
@@ -154,8 +321,8 @@ void place_pieces(string chessboard[ROWS][COLUMNS], chessPiece &w_king, chessPie
     }
 
     // Place Black Pieces
-    chessboard[b_king.row][b_king.column] = b_king.name;
-    chessboard[b_queen.row][b_queen.column] = b_queen.name;
+    chessboard[b_king.row][b_king.column] = b_king.color + b_king.name;
+    chessboard[b_queen.row][b_queen.column] = b_queen.color + b_queen.name;
     for (int i = 0; i < 2; i++)
     {
         chessboard[b_bishop[i].row][b_bishop[i].column] = b_bishop[i].color + b_bishop[i].name;
@@ -211,8 +378,9 @@ bool validate_position(string position, int row, int column)
     }
     return true;
 }
-void selectPiece(int row, int column, string &pieceName, char &pieceColor, int &pieceIndex)
+int selectPiece(int row, int column, string &pieceName, char &pieceColor, int &pieceIndex)
 {
+
     // Selecting White Pieces
 
     if (chessboard[row][column] != "[ ]" && chessboard[row][column][0] == 'w' && isWhitePlaying)
@@ -224,12 +392,18 @@ void selectPiece(int row, int column, string &pieceName, char &pieceColor, int &
             pieceName = w_king.name;
             pieceColor = w_king.color;
             pieceIndex = w_king.index;
+
+            // Show the path for the selected piece
+            w_king.showPath();
         }
         else if (w_queen.row == row && w_queen.column == column)
         {
             pieceName = w_queen.name;
             pieceColor = w_queen.color;
             pieceIndex = w_queen.index;
+
+            // Show the path for the selected piece
+            w_queen.showPath();
         }
 
         // If pawn is being selected
@@ -242,6 +416,9 @@ void selectPiece(int row, int column, string &pieceName, char &pieceColor, int &
                     pieceName = w_pawn[i].name;
                     pieceColor = w_pawn[i].color;
                     pieceIndex = w_pawn[i].index;
+
+                    // Show the path for the selected piece
+                    w_pawn[i].showPath();
                 }
             }
         }
@@ -255,6 +432,9 @@ void selectPiece(int row, int column, string &pieceName, char &pieceColor, int &
                     pieceName = w_rook[i].name;
                     pieceColor = w_rook[i].color;
                     pieceIndex = w_rook[i].index;
+
+                    // Show the path for the selected piece
+                    w_rook[i].showPath();
                 }
             }
             if (w_bishop[i].row == row && w_bishop[i].column == column)
@@ -264,6 +444,9 @@ void selectPiece(int row, int column, string &pieceName, char &pieceColor, int &
                     pieceName = w_bishop[i].name;
                     pieceColor = w_bishop[i].color;
                     pieceIndex = w_bishop[i].index;
+
+                    // Show the path for the selected piece
+                    w_bishop[i].showPath();
                 }
             }
             if (w_knight[i].row == row && w_knight[i].column == column)
@@ -273,6 +456,9 @@ void selectPiece(int row, int column, string &pieceName, char &pieceColor, int &
                     pieceName = w_knight[i].name;
                     pieceColor = w_knight[i].color;
                     pieceIndex = w_knight[i].index;
+
+                    // Show the path for the selected piece
+                    w_knight[i].showPath();
                 }
             }
         }
@@ -287,6 +473,9 @@ void selectPiece(int row, int column, string &pieceName, char &pieceColor, int &
             pieceName = b_king.name;
             pieceColor = b_king.color;
             pieceIndex = b_king.index;
+
+            // Show the path for the selected piece
+            b_king.showPath();
         }
         else if (b_queen.row == row && b_queen.column == column)
         {
@@ -295,6 +484,9 @@ void selectPiece(int row, int column, string &pieceName, char &pieceColor, int &
                 pieceName = b_queen.name;
                 pieceColor = b_queen.color;
                 pieceIndex = b_queen.index;
+
+                // Show the path for the selected piece
+                b_queen.showPath();
             }
         }
 
@@ -309,6 +501,9 @@ void selectPiece(int row, int column, string &pieceName, char &pieceColor, int &
                     pieceName = b_pawn[i].name;
                     pieceColor = b_pawn[i].color;
                     pieceIndex = b_pawn[i].index;
+
+                    // Show the path for the selected piece
+                    b_pawn[i].showPath();
                 }
             }
         }
@@ -322,6 +517,9 @@ void selectPiece(int row, int column, string &pieceName, char &pieceColor, int &
                     pieceName = b_rook[i].name;
                     pieceColor = b_rook[i].color;
                     pieceIndex = b_rook[i].index;
+
+                    // Show the path for the selected piece
+                    b_rook[i].showPath();
                 }
             }
             if (b_bishop[i].row == row && b_bishop[i].column == column)
@@ -331,6 +529,9 @@ void selectPiece(int row, int column, string &pieceName, char &pieceColor, int &
                     pieceName = b_bishop[i].name;
                     pieceColor = b_bishop[i].color;
                     pieceIndex = b_bishop[i].index;
+
+                    // Show the path for the selected piece
+                    b_bishop[i].showPath();
                 }
             }
             if (b_knight[i].row == row && b_knight[i].column == column)
@@ -340,10 +541,19 @@ void selectPiece(int row, int column, string &pieceName, char &pieceColor, int &
                     pieceName = b_knight[i].name;
                     pieceColor = b_knight[i].color;
                     pieceIndex = b_knight[i].index;
+
+                    // Show the path for the selected piece
+                    b_knight[i].showPath();
                 }
             }
         }
     }
+    else
+    {
+        cout << "Invalid Selection, Please select a valid piece" << endl;
+        return 0;
+    }
+    return 1;
 }
 int main()
 {
@@ -385,19 +595,20 @@ int main()
                 cout << "Selected Piece: " << select << endl;
 
                 // Select the piece ..  Todo >>>>>>>
-                selectPiece(rowForSelection, columnForSelection, pieceName, pieceColor, pieceIndex);
-                if (pieceIndex != 0)
+                int check = selectPiece(rowForSelection, columnForSelection, pieceName, pieceColor, pieceIndex);
+                if (check != 0)
                 {
                     cout << "Piece Name: " << pieceName << endl;
                     cout << "Piece Color: " << pieceColor << endl;
                     cout << "Piece Index: " << pieceIndex << endl;
-                    // Ending the loop cuz element is selected
+                    // Resetting flag
                     isWhiteSelected = false;
                 }
-                else
+                else if (check == 0)
                 {
-                    cout << "Invalid Selection" << endl;
+                    cout << "Hehe" << endl;
                 }
+
 
             } while (isWhiteSelected);
             // Display the updated chessboard
@@ -432,7 +643,7 @@ int main()
         else if (isBlackPlaying)
         {
             cout << "Black's Turn" << endl;
-            isBlackSelected = false;
+            isBlackSelected = true;
             // Selecting the pawn
             do
             {
@@ -450,18 +661,18 @@ int main()
                 } while (!validate_position(select, rowForSelection, columnForSelection));
 
                 // Select the piece ..  Todo >>>>>>>
-                selectPiece(rowForSelection, columnForSelection, pieceName, pieceColor, pieceIndex);
-                if (pieceIndex != 0)
+                int check = selectPiece(rowForSelection, columnForSelection, pieceName, pieceColor, pieceIndex);
+                if (check != 0)
                 {
                     cout << "Piece Name: " << pieceName << endl;
                     cout << "Piece Color: " << pieceColor << endl;
                     cout << "Piece Index: " << pieceIndex << endl;
-                    // Ending the loop cuz element is selected
+                    // Resetting flag
                     isBlackSelected = false;
                 }
-                else
+                else if (check == 0)
                 {
-                    cout << "Invalid Selection" << endl;
+                    cout << "Hehe" << endl;
                 }
 
             } while (isBlackSelected);
