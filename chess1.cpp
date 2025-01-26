@@ -148,6 +148,71 @@ void chessPiece::showPath()
     {
         cout << "Showing Path for Queen" << endl;
         // Todo >>>>>>>>>>>>>>>>
+        
+        //	Moves for Queen.
+        
+        // Making a plus move.
+        
+	        // Horizontal moves to the left and right
+			for (int k = column - 1; k >= 0; k--) { // Move left
+			    if (chessboard[row][k] != "[ ]") { // Obstruction detected
+				    break;
+		   		 }
+		   		 chessboard[row][k] = "*"; // Mark as possible move
+			}
+		
+			for (int k = column + 1; k < 8; k++) { // Move right
+		    	if (chessboard[row][k] != "[ ]") { // Obstruction detected
+		    		break;
+		   		 }
+		    	chessboard[row][k] = "*"; // Mark as possible move
+			}
+					
+			// Vertical moves upward and downward
+			for (int k = row - 1; k >= 0; k--) { // Move up
+				if (chessboard[k][column] != "[ ]") { // Obstruction detected
+		    		break;
+		   		}
+		   		 chessboard[k][column] = "*"; // Mark as possible move
+			}
+		
+			for (int k = row + 1; k < 8; k++) {  // Move down.
+				if (chessboard[k][column] != "[ ]") { // Obstruction detected.
+		    		break;
+		   		 }
+		   		chessboard[k][column] = "*"; // Mark as possible move
+			}
+		
+		// Diagonal moves.
+	
+			// Bottom right side.
+			for (int k = 1; k < 8; k++) {
+				if (row + k > 7 || column + k > 7) break;	// Out of bounds checking..
+					if (chessboard[row + k][column + k] != "[ ]") break;	// Obstruction detected.
+					    chessboard[row + k][column + k] = "*";	 // Marking valid move.
+			}
+					
+			// Bottom left move.
+			for (int k = 1; k < 8; k++) { 
+				if (row + k > 7 || column - k < 0) break;	// Out of bounds check.
+					if (chessboard[row + k][column - k] != "[ ]") break;	// Obstruction detected.
+					    chessboard[row + k][column - k] = "*";	 // Marking valid move.
+			}
+					
+			// Top right move.
+			for (int k = 1; k < 8; k++) {
+				if (row - k < 0 || column + k > 7) break;	// Out of bounds
+					if (chessboard[row - k][column + k] != "[ ]") break;	// Obstruction detected
+					    chessboard[row - k][column + k] = "*";	 // Mark valid move.
+			}
+					
+			// Top left move.
+			for (int k = 1; k < 8; k++) {
+				if (row - k < 0 || column - k < 0) break;	// Out of bounds.
+					if (chessboard[row - k][column - k] != "[ ]") break;	// Obstruction detected
+					    chessboard[row - k][column - k] = "*";	// Marking valid move.
+			}
+        
     }
     else if (name == "bishop" && color == 'w')
     {
@@ -157,6 +222,36 @@ void chessPiece::showPath()
             {
                 cout << "Showing Path for Bishop" << i + 1 << endl;
                 // Todo >>>>>>>>>>>>>
+				
+				// Diagonal moves.
+	
+				// Bottom right side.
+				for (int k = 1; k < 8; k++) {
+				    if (row + k > 7 || column + k > 7) break;	// Out of bounds checking..
+				    if (chessboard[row + k][column + k] != "[ ]") break;	// Obstruction detected.
+				    chessboard[row + k][column + k] = "*";	 // Marking valid move.
+				}
+				
+				// Bottom left move.
+				for (int k = 1; k < 8; k++) { 
+				    if (row + k > 7 || column - k < 0) break;	// Out of bounds check.
+				    if (chessboard[row + k][column - k] != "[ ]") break;	// Obstruction detected.
+				    chessboard[row + k][column - k] = "*";	 // Marking valid move.
+				}
+				
+				// Top right move.
+				for (int k = 1; k < 8; k++) {
+				    if (row - k < 0 || column + k > 7) break;	// Out of bounds
+				    if (chessboard[row - k][column + k] != "[ ]") break;	// Obstruction detected
+				    chessboard[row - k][column + k] = "*";	 // Mark valid move.
+				}
+				
+				// Top left move.
+				for (int k = 1; k < 8; k++) {
+				    if (row - k < 0 || column - k < 0) break;	// Out of bounds
+				    if (chessboard[row - k][column - k] != "[ ]") break;	// Obstruction detected
+				    chessboard[row - k][column - k] = "*";	// Marking valid move.
+				}
 
                 break;
             }
@@ -172,36 +267,36 @@ void chessPiece::showPath()
                 cout << "Showing Path for Rook" << i + 1 << endl;
                 // Todo >>>>>>>>>>>>>
                 
-                // Horizontal moves to the left and right.
-				for (int i = w_rook[i].column - 1; i >= 0; i--) { // Move left
-				    if (chessboard[w_rook[i].row][i] != "[ ]") { // Obstruction detected
+                // Horizontal moves to the left and right
+				for (int k = column - 1; k >= 0; k--) { // Move left
+				    if (chessboard[row][k] != "[ ]") { // Obstruction detected
 	    			    break;
 	   				 }
-	   				 chessboard[w_rook[i].row][i] = "*"; // Mark as possible move
+	   				 chessboard[row][k] = "*"; // Mark as possible move
 				}
 	
-				for (int i = w_rook[i].column + 1; i < 8; i++) { // Move right
-	    			if (chessboard[w_rook[i].row][i] != "[ ]") { // Obstruction detected
+				for (int k = column + 1; k < 8; k++) { // Move right
+	    			if (chessboard[row][k] != "[ ]") { // Obstruction detected
 	    			    break;
 	   				 }
-	    			chessboard[w_rook[i].row][i] = "*"; // Mark as possible move
+	    			chessboard[row][k] = "*"; // Mark as possible move
 				}
 				
 				// Vertical moves upward and downward
-				for (int i = w_rook[i].row - 1; i >= 0; i--) { // Move up
-			    	if (chessboard[i][w_rook[i].column] != "[ ]") { // Obstruction detected
+				for (int k = row - 1; k >= 0; k--) { // Move up
+			    	if (chessboard[k][column] != "[ ]") { // Obstruction detected
 	    		    	break;
 	   			 	}
-	   			 chessboard[i][w_rook[i].column] = "*"; // Mark as possible move
+	   			 chessboard[k][column] = "*"; // Mark as possible move
 				}
 	
-				for (int i = w_rook[i].row + 1; i < 8; i++) {  // Move down.
-				    if (chessboard[i][w_rook[i].column] != "[ ]") { // Obstruction detected.
+				for (int k = row + 1; k < 8; k++) {  // Move down.
+				    if (chessboard[k][column] != "[ ]") { // Obstruction detected.
 	    			    break;
 	   				 }
-	   			 	chessboard[i][w_rook[i].column] = "*"; // Mark as possible move
+	   			 	chessboard[k][column] = "*"; // Mark as possible move
 				}
-
+			
                 break;
             }
         }
@@ -214,6 +309,21 @@ void chessPiece::showPath()
             {
                 cout << "Showing Path for Knight" << i + 1 << endl;
                 // Todo >>>>>>>>>>>>>
+                
+                // Declearing possible positions for Knight moves.
+                int knight_moves[8][2] = { {-2, 1}, {-1, 2}, {1, 2}, {2, 1}, {-2, -1}, {-1, -2}, {1, -2}, {2, -1} };
+                
+                for(int k = 0; k < 8; k++) {
+                    int new_row = row + knight_moves[k][0];
+                    int new_col = column + knight_moves[k][1];
+                    //	Checking for out of bonds move.
+                    if (new_row >= 0 && new_row < 8 && new_col >= 0 && new_col < 8) {
+                    	if(chessboard[new_row][new_col] != "[ ]") {		// Checking for Obstruction on the way.
+                    		continue;
+						}
+                        chessboard[new_row][new_col] = "*";
+                    }
+                }
 
                 break;
             }
@@ -261,6 +371,71 @@ void chessPiece::showPath()
     {
         cout << "Showing Path for Queen" << endl;
         // Todo >>>>>>>>>>>>>>>>
+        
+        //	Moves for Queen.
+        
+        // Making a plus move.
+        
+	        // Horizontal moves to the left and right
+			for (int k = column - 1; k >= 0; k--) { // Move left
+			    if (chessboard[row][k] != "[ ]") { // Obstruction detected
+				    break;
+		   		 }
+		   		 chessboard[row][k] = "*"; // Mark as possible move
+			}
+		
+			for (int k = column + 1; k < 8; k++) { // Move right
+		    	if (chessboard[row][k] != "[ ]") { // Obstruction detected
+		    		break;
+		   		 }
+		    	chessboard[row][k] = "*"; // Mark as possible move
+			}
+					
+			// Vertical moves upward and downward
+			for (int k = row - 1; k >= 0; k--) { // Move up
+				if (chessboard[k][column] != "[ ]") { // Obstruction detected
+		    		break;
+		   		}
+		   		 chessboard[k][column] = "*"; // Mark as possible move
+			}
+		
+			for (int k = row + 1; k < 8; k++) {  // Move down.
+				if (chessboard[k][column] != "[ ]") { // Obstruction detected.
+		    		break;
+		   		 }
+		   		chessboard[k][column] = "*"; // Mark as possible move
+			}
+		
+		// Diagonal moves.
+	
+			// Bottom right side.
+			for (int k = 1; k < 8; k++) {
+				if (row + k > 7 || column + k > 7) break;	// Out of bounds checking..
+					if (chessboard[row + k][column + k] != "[ ]") break;	// Obstruction detected.
+					    chessboard[row + k][column + k] = "*";	 // Marking valid move.
+			}
+					
+			// Bottom left move.
+			for (int k = 1; k < 8; k++) { 
+				if (row + k > 7 || column - k < 0) break;	// Out of bounds check.
+					if (chessboard[row + k][column - k] != "[ ]") break;	// Obstruction detected.
+					    chessboard[row + k][column - k] = "*";	 // Marking valid move.
+			}
+					
+			// Top right move.
+			for (int k = 1; k < 8; k++) {
+				if (row - k < 0 || column + k > 7) break;	// Out of bounds
+					if (chessboard[row - k][column + k] != "[ ]") break;	// Obstruction detected
+					    chessboard[row - k][column + k] = "*";	 // Mark valid move.
+			}
+					
+			// Top left move.
+			for (int k = 1; k < 8; k++) {
+				if (row - k < 0 || column - k < 0) break;	// Out of bounds.
+					if (chessboard[row - k][column - k] != "[ ]") break;	// Obstruction detected
+					    chessboard[row - k][column - k] = "*";	// Marking valid move.
+			}
+        
     }
     else if (name == "bishop" && color == 'b')
     {
@@ -270,6 +445,36 @@ void chessPiece::showPath()
             {
                 cout << "Showing Path for Bishop" << i + 1 << endl;
                 // Todo >>>>>>>>>>>>>
+                
+                // Diagonal moves.
+	
+				// Bottom right side.
+				for (int k = 1; k < 8; k++) {
+				    if (row + k > 7 || column + k > 7) break;	// Out of bounds checking..
+				    if (chessboard[row + k][column + k] != "[ ]") break;	// Obstruction detected.
+				    chessboard[row + k][column + k] = "*";	 // Marking valid move.
+				}
+				
+				// Bottom left move.
+				for (int k = 1; k < 8; k++) { 
+				    if (row + k > 7 || column - k < 0) break;	// Out of bounds check.
+				    if (chessboard[row + k][column - k] != "[ ]") break;	// Obstruction detected.
+				    chessboard[row + k][column - k] = "*";	 // Marking valid move.
+				}
+				
+				// Top right move.
+				for (int k = 1; k < 8; k++) {
+				    if (row - k < 0 || column + k > 7) break;	// Out of bounds
+				    if (chessboard[row - k][column + k] != "[ ]") break;	// Obstruction detected
+				    chessboard[row - k][column + k] = "*";	 // Mark valid move.
+				}
+				
+				// Top left move.
+				for (int k = 1; k < 8; k++) {
+				    if (row - k < 0 || column - k < 0) break;	// Out of bounds
+				    if (chessboard[row - k][column - k] != "[ ]") break;	// Obstruction detected
+				    chessboard[row - k][column - k] = "*";	// Marking valid move.
+				}
 
                 break;
             }
@@ -277,12 +482,42 @@ void chessPiece::showPath()
     }
     else if (name == "rook" && color == 'b')
     {
-        for (int i = 0; i < 2; i++)
+        for (int k = 0; k < 2; k++)
         {
-            if (b_rook[i].index == pieceIndex)
+            if (b_rook[k].index == pieceIndex)
             {
-                cout << "Showing Path for Rook" << i + 1 << endl;
+                cout << "Showing Path for Rook" << k + 1 << endl;
                 // Todo >>>>>>>>>>>>>
+                
+                 // Horizontal moves to the left and right
+				for (int k = column - 1; k >= 0; k--) { // Move left
+				    if (chessboard[row][k] != "[ ]") { // Obstruction detected
+	    			    break;
+	   				 }
+	   				 chessboard[row][k] = "*"; // Mark as possible move
+				}
+	
+				for (int k = column + 1; k < 8; k++) { // Move right
+	    			if (chessboard[row][k] != "[ ]") { // Obstruction detected
+	    			    break;
+	   				 }
+	    			chessboard[row][k] = "*"; // Mark as possible move
+				}
+				
+				// Vertical moves upward and downward
+				for (int k = row - 1; k >= 0; k--) { // Move up
+			    	if (chessboard[k][column] != "[ ]") { // Obstruction detected
+	    		    	break;
+	   			 	}
+	   			 chessboard[k][column] = "*"; // Mark as possible move
+				}
+	
+				for (int k = row + 1; k < 8; k++) {  // Move down.
+				    if (chessboard[k][column] != "[ ]") { // Obstruction detected.
+	    			    break;
+	   				 }
+	   			 	chessboard[k][column] = "*"; // Mark as possible move
+				}
 
                 break;
             }
@@ -291,11 +526,27 @@ void chessPiece::showPath()
     else if (name == "knight" && color == 'b')
     {
         for (int i = 0; i < 2; i++)
-        {
-            if (b_knight[i].index == pieceIndex)
+        {	
             {
+            if (b_knight[i].index == pieceIndex)
                 cout << "Showing Path for Knight" << i + 1 << endl;
                 // Todo >>>>>>>>>>>>>
+                
+                // Declearing possible positions for Knight moves.
+                int knight_moves[8][2] = { {-2, 1}, {-1, 2}, {1, 2}, {2, 1}, {-2, -1}, {-1, -2}, {1, -2}, {2, -1} };
+               
+                for(int k = 0; k < 8; k++) {
+                    int new_row = row + knight_moves[k][0];
+                    int new_col = column + knight_moves[k][1];
+                    //	Checking for out of bonds move.
+                    if (new_row >= 0 && new_row < 8 && new_col >= 0 && new_col < 8) {
+                    	if(chessboard[new_row][new_col] != "[ ]") {		// Checking for Obstruction on the way.
+                    		continue;
+						}
+                        chessboard[new_row][new_col] = "*";
+                    }
+                }
+                
                 break;
             }
         }
@@ -352,6 +603,20 @@ void chessPiece::move()
     {
         cout << "Moving the Queen" << endl;
         // Todo >>>>>>>>>>>>>>>>
+        
+        // Checking for a valid move.
+        if (chessboard[rowForMovement][columnForMovement] == "*") {
+        	// Updating Queen Position.
+        	chessboard[rowForMovement][columnForMovement] = "wqueen";
+        	
+        	// Removing previous positions.
+        	chessboard[row][column] = "[ ]";
+        	
+        	// Updating row and column.
+        	row = rowForMovement;
+        	column = columnForMovement;
+		}
+		else cout << "You enterd wrong position!";
 
         // Update the movesCounter
         movesCounter++;
@@ -369,6 +634,20 @@ void chessPiece::move()
             {
                 cout << "Moving the Bishop" << i + 1 << endl;
                 // Todo >>>>>>>>>>>>>
+                
+                //	Checking for valid move.
+                if (chessboard[rowForMovement][columnForMovement] == "*") {
+                	//	Updating bishop position.
+                	chessboard[rowForMovement][columnForMovement] = "wbishop";	
+                	
+                	//	Resetting previous position.
+                	chessboard[row][column] = "[ ]";
+                	
+                	//	Updating rows and column.
+                	
+                	row = rowForMovement;
+                	column = columnForMovement;
+				}
 
                 // Update the movesCounter
                 movesCounter++;
@@ -389,6 +668,20 @@ void chessPiece::move()
             {
                 cout << "Moving the Rook" << i + 1 << endl;
                 // Todo >>>>>>>>>>>>>
+                
+                //	Checking for legal move.
+                if (chessboard[rowForMovement][columnForMovement] == "*") {
+                	//	Updating position of 'wrook'.
+                	chessboard[rowForMovement][columnForMovement] = "wrook";
+                	
+                	// Resetting the previous name.
+                	chessboard[row][column] = "[ ]";
+                	
+                	//	Updating row and column.
+                	row = rowForMovement;
+                	column = columnForMovement;
+				}
+				else cout << "You entered wrong move!";
 
                 // Update the movesCounter
                 movesCounter++;
@@ -409,6 +702,19 @@ void chessPiece::move()
             {
                 cout << "Moving the Knight" << i + 1 << endl;
                 // Todo >>>>>>>>>>>>>
+                
+                //	Cheking for valid move of knight.
+                if (chessboard[rowForMovement][columnForMovement] == "*") {
+                	// Updating Knight positions.
+                	chessboard[rowForMovement][columnForMovement] = "wknight";
+                	
+                	//	Resetting previous move.
+                	chessboard[row][column] = "[ ]";
+                	
+                	//	Updating Knight rows and column.
+                	row = rowForMovement;
+                	column = columnForMovement;
+				}
 
                 // Update the movesCounter
                 movesCounter++;
@@ -430,10 +736,9 @@ void chessPiece::move()
                 cout << "Moving the Pawn" << i + 1 << endl;
                 // Todo >>>>>>>>>>>>>
 				
-				// Checking for valid move.
-				if (chessboard[rowForMovement][column] == "*") {
-					chessboard[rowForMovement][column] = "wpawn"; //	Sugguest me what should I write here instead of "wpawn" ? Beacuse pieceName is pawn.
-					cout << row << endl << column << endl;
+				// Checking for valid move. Plus updating its position.
+				if (chessboard[rowForMovement][columnForMovement] == "*") {
+					chessboard[rowForMovement][columnForMovement] = "wpawn"; //	Sugguest me what should I write here instead of "wpawn" ? Beacuse pieceName is pawn.
 					
 					// 	Resetting previous position.
 					chessboard[row][column] = "[ ]";
@@ -474,6 +779,20 @@ void chessPiece::move()
     {
         cout << "Moving the Queen" << endl;
         // Todo >>>>>>>>>>>>>>>>
+        
+        // Checking for a valid move.
+        if (chessboard[rowForMovement][columnForMovement] == "*") {
+        	// Updating Queen Position.
+        	chessboard[rowForMovement][columnForMovement] = "wqueen";
+        	
+        	// Removing previous positions.
+        	chessboard[row][column] = "[ ]";
+        	
+        	// Updating row and column.
+        	row = rowForMovement;
+        	column = columnForMovement;
+		}
+		else cout << "You enterd wrong position!";
 
         // Update the movesCounter
         movesCounter++;
@@ -491,6 +810,20 @@ void chessPiece::move()
             {
                 cout << "Moving the Bishop" << i + 1 << endl;
                 // Todo >>>>>>>>>>>>>
+                
+                //	Checking for valid move.
+                if (chessboard[rowForMovement][columnForMovement] == "*") {
+                	//	Updating bishop position.
+                	chessboard[rowForMovement][columnForMovement] = "wbishop";	
+                	
+                	//	Resetting previous position.
+                	chessboard[row][column] = "[ ]";
+                	
+                	//	Updating rows and column.
+                	
+                	row = rowForMovement;
+                	column = columnForMovement;
+				}
 
                 // Update the movesCounter
                 movesCounter++;
@@ -511,7 +844,20 @@ void chessPiece::move()
             {
                 cout << "Moving the Rook" << i + 1 << endl;
                 // Todo >>>>>>>>>>>>>
-
+				
+				//	Updating position of 'wrook'.
+				if (chessboard[rowForMovement][columnForMovement] == "*") {
+                	chessboard[rowForMovement][columnForMovement] = "brook";
+                	
+                	// Resetting the previous name.
+                	chessboard[row][column] = "[ ]";
+                	
+                	//	Updating row and column.
+                	row = rowForMovement;
+                	column = columnForMovement;
+				}
+				else cout << "You entered wrong move!";
+				
                 // Update the movesCounter
                 movesCounter++;
 
@@ -525,12 +871,25 @@ void chessPiece::move()
     }
     else if (name == "knight" && color == 'b')
     {
-        for (int i = 0; i < 2; i++)
-        {
-            if (b_knight[i].index == pieceIndex)
-            {
+        for (int i = 0; i < 2; i++) 
+		{	cout << "Checking..." << i << endl;
+            if (b_knight[i].index == pieceIndex) //	Here your condition always returning false...!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            {		cout << "Checking it..." << endl;
                 cout << "Moving the Knight" << i + 1 << endl;
                 // Todo >>>>>>>>>>>>>
+                
+                //	Cheking for valid move of knight.
+                if (chessboard[rowForMovement][columnForMovement] == "*") {
+                	// Updating Knight positions.
+                	chessboard[rowForMovement][columnForMovement] = "bknight";
+                	cout << "Vaild..";
+                	//	Resetting previous move.
+                	chessboard[row][column] = "[ ]";
+                	
+                	//	Updating Knight rows and column.
+                	row = rowForMovement;
+                	column = columnForMovement;
+				}
 
                 // Update the movesCounter
                 movesCounter++;
@@ -552,9 +911,9 @@ void chessPiece::move()
                 cout << "Moving the Pawn" << i + 1 << endl;
                 // Todo >>>>>>>>>>>>>
 				
-				// Checking for valid move.
-				if (chessboard[rowForMovement][column] == "*") {
-					chessboard[rowForMovement][column] = "bpawn"; //	Sugguest me what should I write here instead of "wpawn" ? Beacuse pieceName is pawn.
+				// Checking for valid move. And updating position.
+				if (chessboard[rowForMovement][columnForMovement] == "*") {
+					chessboard[rowForMovement][columnForMovement] = "bpawn"; //	Sugguest me what should I write here instead of "wpawn" ? Beacuse pieceName is pawn.
 					
 					// 	Resetting previous position.
 					chessboard[row][column] = "[ ]";
