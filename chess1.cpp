@@ -227,6 +227,24 @@ void chessPiece::showPath()
             {
                 cout << "Showing Path for Pawn" << i + 1 << endl;
                 // Todo >>>>>>>>>>>>>
+                
+                // For Pawn movement.
+				for (int k = 0; k < 1; k++) {
+					// Move one step forward for 'White' pawn.
+			        if (row > 0) {
+			            if (chessboard[row - 1][column] == "[ ]") {
+							chessboard[row - 1][column] = "*";
+						}
+						else break;
+			        }
+			
+					// Check if 'White' pawn can move two steps forward
+			        if (row == 6) {
+			            if (chessboard[row - 2][column] == "[ ]") {
+			            	chessboard[row - 2][column] = "*";
+			        	}
+					}
+				}
 
                 break;
             }
@@ -290,7 +308,25 @@ void chessPiece::showPath()
             {
                 cout << "Showing Path for Pawn" << i + 1 << endl;
                 // Todo >>>>>>>>>>>>>
-
+				
+				// For Pawn movement.
+				for (int k = 0; k < 1; k++) {
+					// Move one step forward for 'White' pawn.
+			        if (row < 8) {
+			            if (chessboard[row + 1][column] == "[ ]") {
+							chessboard[row + 1][column] = "*";
+						}
+						else break;
+			        }
+			
+					// Check if 'White' pawn can move two steps forward
+			        if (row == 1) {
+			            if (chessboard[row + 2][column] == "[ ]") {
+			            	chessboard[row + 2][column] = "*";
+			        	}
+					}
+				}
+				
                 break;
             }
         }
@@ -393,7 +429,21 @@ void chessPiece::move()
             {
                 cout << "Moving the Pawn" << i + 1 << endl;
                 // Todo >>>>>>>>>>>>>
-
+				
+				// Checking for valid move.
+				if (chessboard[rowForMovement][column] == "*") {
+					chessboard[rowForMovement][column] = "wpawn"; //	Sugguest me what should I write here instead of "wpawn" ? Beacuse pieceName is pawn.
+					cout << row << endl << column << endl;
+					
+					// 	Resetting previous position.
+					chessboard[row][column] = "[ ]";
+					row = rowForMovement;
+					column = columnForMovement;
+					
+				}
+				else {
+					cout << "You entered invalid move!" << endl;//		When user enter wrong move game move to next turn. Have a look on this issue.
+				}
                 // Update the movesCounter
                 movesCounter++;
 
@@ -501,7 +551,20 @@ void chessPiece::move()
             {
                 cout << "Moving the Pawn" << i + 1 << endl;
                 // Todo >>>>>>>>>>>>>
-
+				
+				// Checking for valid move.
+				if (chessboard[rowForMovement][column] == "*") {
+					chessboard[rowForMovement][column] = "bpawn"; //	Sugguest me what should I write here instead of "wpawn" ? Beacuse pieceName is pawn.
+					
+					// 	Resetting previous position.
+					chessboard[row][column] = "[ ]";
+					row = rowForMovement;
+					column = columnForMovement;
+				}
+				else {
+					cout << "You entered invalid move!" << endl;//		When user enter wrong move game move to next turn. Have a look on this issue.
+				}
+				
                 // Update the movesCounter
                 movesCounter++;
 
@@ -513,6 +576,13 @@ void chessPiece::move()
             }
         }
     }
+    for (int reset_row =0; reset_row < 8; reset_row++) {
+    	for (int reset_col = 0; reset_col < 8; reset_col++) {
+    		if (chessboard[reset_row][reset_col] == "*") {
+    			chessboard[reset_row][reset_col] = "[ ]";
+			}
+		}
+	}
 }
 
 // Place the pieces on the chessboard
@@ -887,7 +957,7 @@ int main()
             } while (isBlackMoving);
 
             // Display the updated chessboard
-            // display_chessboard(ROWS, COLUMNS, chessboard);
+             display_chessboard(ROWS, COLUMNS, chessboard);
 
             // Switch to white's turn
             isBlackPlaying = false;
