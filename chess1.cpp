@@ -161,6 +161,7 @@ void chessPiece::showPath()
                 break;
             }
         }
+        
     }
     else if (name == "rook" && color == 'w')
     {
@@ -760,7 +761,7 @@ int main()
     place_pieces(chessboard, w_king, w_queen, w_bishop, w_rook, w_knight, w_pawn, b_king, b_queen, b_bishop, b_rook, b_knight, b_pawn);
 
     // Display the Chessboard
-    // display_chessboard(ROWS, COLUMNS, chessboard);
+     display_chessboard(ROWS, COLUMNS, chessboard);
 
     // Run the game until it is being played
     while (isPlaying)
@@ -797,7 +798,7 @@ int main()
 
             } while (isWhiteSelected);
             // Display the updated chessboard
-            // display_chessboard(ROWS, COLUMNS, chessboard);
+             display_chessboard(ROWS, COLUMNS, chessboard);
 
             // Moving the white pawn
             do
