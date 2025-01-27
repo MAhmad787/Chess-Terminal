@@ -1167,6 +1167,7 @@ chessPiece *selectPiece(int row, int column, string &pieceName, char &pieceColor
                 // Updating the values
                 pieceName = b_knight[i].name;
                 pieceColor = b_knight[i].color;
+                pieceIndex = b_knight[i].index;
 
                 b_knight[i].showPath();
                 return &b_knight[i];
