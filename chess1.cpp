@@ -149,6 +149,9 @@ void chessPiece::showPath()
         cout << "Showing Path for Queen" << endl;
         // Todo >>>>>>>>>>>>>>>>
         
+        //	Creating a variable that check is there is any move on the board.
+        int checkingMv = 0;
+        
         //	Moves for Queen.
         
         // Making a plus move.
@@ -156,9 +159,10 @@ void chessPiece::showPath()
 	        // Horizontal moves to the left and right
 			for (int k = column - 1; k >= 0; k--) { // Move left
 			    if (chessboard[row][k] != "[ ]") { // Obstruction detected
-				    break;
+					break;
 		   		 }
 		   		 chessboard[row][k] = "*"; // Mark as possible move
+		   		 checkingMv = 1;
 			}
 		
 			for (int k = column + 1; k < 8; k++) { // Move right
@@ -166,6 +170,7 @@ void chessPiece::showPath()
 		    		break;
 		   		 }
 		    	chessboard[row][k] = "*"; // Mark as possible move
+		    	checkingMv = 1;
 			}
 					
 			// Vertical moves upward and downward
@@ -174,6 +179,7 @@ void chessPiece::showPath()
 		    		break;
 		   		}
 		   		 chessboard[k][column] = "*"; // Mark as possible move
+		   		 checkingMv = 1;
 			}
 		
 			for (int k = row + 1; k < 8; k++) {  // Move down.
@@ -181,6 +187,7 @@ void chessPiece::showPath()
 		    		break;
 		   		 }
 		   		chessboard[k][column] = "*"; // Mark as possible move
+		   		checkingMv = 1;
 			}
 		
 		// Diagonal moves.
@@ -188,34 +195,53 @@ void chessPiece::showPath()
 			// Bottom right side.
 			for (int k = 1; k < 8; k++) {
 				if (row + k > 7 || column + k > 7) break;	// Out of bounds checking..
-					if (chessboard[row + k][column + k] != "[ ]") break;	// Obstruction detected.
+					if (chessboard[row + k][column + k] != "[ ]") {
+					break;	// Obstruction detected.
+				}
 					    chessboard[row + k][column + k] = "*";	 // Marking valid move.
+					checkingMv = 1;
 			}
 					
 			// Bottom left move.
 			for (int k = 1; k < 8; k++) { 
 				if (row + k > 7 || column - k < 0) break;	// Out of bounds check.
-					if (chessboard[row + k][column - k] != "[ ]") break;	// Obstruction detected.
+					if (chessboard[row + k][column - k] != "[ ]") {
+					break;	// Obstruction detected.
+				}
 					    chessboard[row + k][column - k] = "*";	 // Marking valid move.
+					checkingMv = 1;
 			}
 					
 			// Top right move.
 			for (int k = 1; k < 8; k++) {
 				if (row - k < 0 || column + k > 7) break;	// Out of bounds
-					if (chessboard[row - k][column + k] != "[ ]") break;	// Obstruction detected
+					if (chessboard[row - k][column + k] != "[ ]") {
+					break;	// Obstruction detected.
+				}
 					    chessboard[row - k][column + k] = "*";	 // Mark valid move.
+					checkingMv = 1;
 			}
 					
 			// Top left move.
 			for (int k = 1; k < 8; k++) {
 				if (row - k < 0 || column - k < 0) break;	// Out of bounds.
-					if (chessboard[row - k][column - k] != "[ ]") break;	// Obstruction detected
+					if (chessboard[row - k][column - k] != "[ ]") {
+					break;	// Obstruction detected.
+				}
 					    chessboard[row - k][column - k] = "*";	// Marking valid move.
+					checkingMv = 1;
 			}
-        
-    }
+			
+			//	Showing that if piece can't even move.
+		    if (checkingMv == 0){
+		    	cout << "Piece can't even move." << endl;
+			}
+    
+	}
     else if (name == "bishop" && color == 'w')
     {
+    	//	Creating a variable that check is there is any move on the board.
+        	int checkingMv = 0;
         for (int i = 0; i < 2; i++)
         {
             if (w_bishop[i].index == pieceIndex)
@@ -223,13 +249,20 @@ void chessPiece::showPath()
                 cout << "Showing Path for Bishop" << i + 1 << endl;
                 // Todo >>>>>>>>>>>>>
 				
+				
+				
 				// Diagonal moves.
 	
 				// Bottom right side.
 				for (int k = 1; k < 8; k++) {
-				    if (row + k > 7 || column + k > 7) break;	// Out of bounds checking..
-				    if (chessboard[row + k][column + k] != "[ ]") break;	// Obstruction detected.
+				    if (row + k > 7 || column + k > 7) break;	// Outbreak of bounds checking..
+				    if (chessboard[row + k][column + k] != "[ ]") {
+				    	break;	// Obstruction detected.
+				    }
 				    chessboard[row + k][column + k] = "*";	 // Marking valid move.
+				    checkingMv = 1;
+				    
+					
 				}
 				
 				// Bottom left move.
@@ -237,6 +270,7 @@ void chessPiece::showPath()
 				    if (row + k > 7 || column - k < 0) break;	// Out of bounds check.
 				    if (chessboard[row + k][column - k] != "[ ]") break;	// Obstruction detected.
 				    chessboard[row + k][column - k] = "*";	 // Marking valid move.
+				    checkingMv = 1;
 				}
 				
 				// Top right move.
@@ -244,6 +278,7 @@ void chessPiece::showPath()
 				    if (row - k < 0 || column + k > 7) break;	// Out of bounds
 				    if (chessboard[row - k][column + k] != "[ ]") break;	// Obstruction detected
 				    chessboard[row - k][column + k] = "*";	 // Mark valid move.
+				    checkingMv = 1;
 				}
 				
 				// Top left move.
@@ -251,15 +286,23 @@ void chessPiece::showPath()
 				    if (row - k < 0 || column - k < 0) break;	// Out of bounds
 				    if (chessboard[row - k][column - k] != "[ ]") break;	// Obstruction detected
 				    chessboard[row - k][column - k] = "*";	// Marking valid move.
+				    checkingMv = 1;
 				}
 
                 break;
             }
         }
+        //	Showing that if piece can't even move.
+		    if (checkingMv == 0){
+		    	cout << "Piece can't even move." << endl;
+			}
         
     }
     else if (name == "rook" && color == 'w')
     {
+	//	Creating a variable that check is there is any move on the board.
+   	int checkingMv = 0;
+   	
         for (int i = 0; i < 2; i++)
         {
             if (w_rook[i].index == pieceIndex)
@@ -273,6 +316,7 @@ void chessPiece::showPath()
 	    			    break;
 	   				 }
 	   				 chessboard[row][k] = "*"; // Mark as possible move
+	   				 checkingMv = 1;
 				}
 	
 				for (int k = column + 1; k < 8; k++) { // Move right
@@ -280,6 +324,7 @@ void chessPiece::showPath()
 	    			    break;
 	   				 }
 	    			chessboard[row][k] = "*"; // Mark as possible move
+	    			checkingMv = 1;
 				}
 				
 				// Vertical moves upward and downward
@@ -288,6 +333,7 @@ void chessPiece::showPath()
 	    		    	break;
 	   			 	}
 	   			 chessboard[k][column] = "*"; // Mark as possible move
+	   			 checkingMv = 1;
 				}
 	
 				for (int k = row + 1; k < 8; k++) {  // Move down.
@@ -295,14 +341,22 @@ void chessPiece::showPath()
 	    			    break;
 	   				 }
 	   			 	chessboard[k][column] = "*"; // Mark as possible move
+	   			 	checkingMv = 1;
 				}
 			
                 break;
             }
         }
+        //	Showing that if piece can't even move.
+		    if (checkingMv == 0){
+		    	cout << "Piece can't even move." << endl;
+			}
     }
     else if (name == "knight" && color == 'w')
     {
+	//	Creating a variable that check is there is any move on the board.
+   	int checkingMv = 0;
+   	
         for (int i = 0; i < 2; i++)
         {
             if (w_knight[i].index == pieceIndex)
@@ -322,15 +376,23 @@ void chessPiece::showPath()
                     		continue;
 						}
                         chessboard[new_row][new_col] = "*";
+                        checkingMv = 1;
                     }
                 }
 
                 break;
             }
         }
+        //	Showing that if piece can't even move.
+		    if (checkingMv == 0){
+		    	cout << "Piece can't even move." << endl;
+			}
     }
     else if (name == "pawn" && color == 'w')
     {
+	//	Creating a variable that check is there is any move on the board.
+   	int checkingMv = 0;
+   	
         for (int i = 0; i < 8; i++)
         {
             if (w_pawn[i].index == pieceIndex)
@@ -344,14 +406,18 @@ void chessPiece::showPath()
 			        if (row > 0) {
 			            if (chessboard[row - 1][column] == "[ ]") {
 							chessboard[row - 1][column] = "*";
+							checkingMv = 1;
 						}
-						else break;
+						else {
+							break;
+						}
 			        }
 			
 					// Check if 'White' pawn can move two steps forward
 			        if (row == 6) {
 			            if (chessboard[row - 2][column] == "[ ]") {
 			            	chessboard[row - 2][column] = "*";
+			            	checkingMv = 1;
 			        	}
 					}
 				}
@@ -359,6 +425,10 @@ void chessPiece::showPath()
                 break;
             }
         }
+        //	Showing that if piece can't even move.
+		    if (checkingMv == 0){
+		    	cout << "Piece can't even move." << endl;
+			}
     }
 
     // Show path for black pieces
@@ -369,6 +439,9 @@ void chessPiece::showPath()
     }
     else if (name == "queen" && color == 'b')
     {
+	//	Creating a variable that check is there is any move on the board.
+   	int checkingMv = 0;
+   	
         cout << "Showing Path for Queen" << endl;
         // Todo >>>>>>>>>>>>>>>>
         
@@ -382,6 +455,7 @@ void chessPiece::showPath()
 				    break;
 		   		 }
 		   		 chessboard[row][k] = "*"; // Mark as possible move
+		   		 checkingMv = 1;
 			}
 		
 			for (int k = column + 1; k < 8; k++) { // Move right
@@ -389,6 +463,7 @@ void chessPiece::showPath()
 		    		break;
 		   		 }
 		    	chessboard[row][k] = "*"; // Mark as possible move
+		    	checkingMv = 1;
 			}
 					
 			// Vertical moves upward and downward
@@ -397,6 +472,7 @@ void chessPiece::showPath()
 		    		break;
 		   		}
 		   		 chessboard[k][column] = "*"; // Mark as possible move
+		   		 checkingMv = 1;
 			}
 		
 			for (int k = row + 1; k < 8; k++) {  // Move down.
@@ -404,6 +480,7 @@ void chessPiece::showPath()
 		    		break;
 		   		 }
 		   		chessboard[k][column] = "*"; // Mark as possible move
+		   		checkingMv = 1;
 			}
 		
 		// Diagonal moves.
@@ -413,6 +490,7 @@ void chessPiece::showPath()
 				if (row + k > 7 || column + k > 7) break;	// Out of bounds checking..
 					if (chessboard[row + k][column + k] != "[ ]") break;	// Obstruction detected.
 					    chessboard[row + k][column + k] = "*";	 // Marking valid move.
+					    checkingMv = 1;
 			}
 					
 			// Bottom left move.
@@ -420,6 +498,7 @@ void chessPiece::showPath()
 				if (row + k > 7 || column - k < 0) break;	// Out of bounds check.
 					if (chessboard[row + k][column - k] != "[ ]") break;	// Obstruction detected.
 					    chessboard[row + k][column - k] = "*";	 // Marking valid move.
+					    checkingMv = 1;
 			}
 					
 			// Top right move.
@@ -427,6 +506,7 @@ void chessPiece::showPath()
 				if (row - k < 0 || column + k > 7) break;	// Out of bounds
 					if (chessboard[row - k][column + k] != "[ ]") break;	// Obstruction detected
 					    chessboard[row - k][column + k] = "*";	 // Mark valid move.
+					    checkingMv = 1;
 			}
 					
 			// Top left move.
@@ -434,11 +514,18 @@ void chessPiece::showPath()
 				if (row - k < 0 || column - k < 0) break;	// Out of bounds.
 					if (chessboard[row - k][column - k] != "[ ]") break;	// Obstruction detected
 					    chessboard[row - k][column - k] = "*";	// Marking valid move.
+					    checkingMv = 1;
 			}
-        
+        //	Showing that if piece can't even move.
+		    if (checkingMv == 0){
+		    	cout << "Piece can't even move." << endl;
+			}
     }
     else if (name == "bishop" && color == 'b')
     {
+	//	Creating a variable that check is there is any move on the board.
+   	int checkingMv = 0;
+   	
         for (int i = 0; i < 2; i++)
         {
             if (b_bishop[i].index == pieceIndex)
@@ -453,6 +540,7 @@ void chessPiece::showPath()
 				    if (row + k > 7 || column + k > 7) break;	// Out of bounds checking..
 				    if (chessboard[row + k][column + k] != "[ ]") break;	// Obstruction detected.
 				    chessboard[row + k][column + k] = "*";	 // Marking valid move.
+				    checkingMv = 1;
 				}
 				
 				// Bottom left move.
@@ -460,6 +548,7 @@ void chessPiece::showPath()
 				    if (row + k > 7 || column - k < 0) break;	// Out of bounds check.
 				    if (chessboard[row + k][column - k] != "[ ]") break;	// Obstruction detected.
 				    chessboard[row + k][column - k] = "*";	 // Marking valid move.
+				    checkingMv = 1;
 				}
 				
 				// Top right move.
@@ -467,6 +556,7 @@ void chessPiece::showPath()
 				    if (row - k < 0 || column + k > 7) break;	// Out of bounds
 				    if (chessboard[row - k][column + k] != "[ ]") break;	// Obstruction detected
 				    chessboard[row - k][column + k] = "*";	 // Mark valid move.
+				    checkingMv = 1;
 				}
 				
 				// Top left move.
@@ -474,14 +564,22 @@ void chessPiece::showPath()
 				    if (row - k < 0 || column - k < 0) break;	// Out of bounds
 				    if (chessboard[row - k][column - k] != "[ ]") break;	// Obstruction detected
 				    chessboard[row - k][column - k] = "*";	// Marking valid move.
+				    checkingMv = 1;
 				}
 
                 break;
             }
         }
+        //	Showing that if piece can't even move.
+		    if (checkingMv == 0){
+		    	cout << "Piece can't even move." << endl;
+			}
     }
     else if (name == "rook" && color == 'b')
     {
+	//	Creating a variable that check is there is any move on the board.
+   	int checkingMv = 0;
+   	
         for (int k = 0; k < 2; k++)
         {
             if (b_rook[k].index == pieceIndex)
@@ -495,6 +593,7 @@ void chessPiece::showPath()
 	    			    break;
 	   				 }
 	   				 chessboard[row][k] = "*"; // Mark as possible move
+	   				 checkingMv = 1;
 				}
 	
 				for (int k = column + 1; k < 8; k++) { // Move right
@@ -502,6 +601,7 @@ void chessPiece::showPath()
 	    			    break;
 	   				 }
 	    			chessboard[row][k] = "*"; // Mark as possible move
+	    			checkingMv = 1;
 				}
 				
 				// Vertical moves upward and downward
@@ -522,9 +622,16 @@ void chessPiece::showPath()
                 break;
             }
         }
+        //	Showing that if piece can't even move.
+		    if (checkingMv == 0){
+		    	cout << "Piece can't even move." << endl;
+			}
     }
     else if (name == "knight" && color == 'b')
     {
+	//	Creating a variable that check is there is any move on the board.
+   	int checkingMv = 0;
+   	
         for (int i = 0; i < 2; i++)
         {	
             {
@@ -550,9 +657,16 @@ void chessPiece::showPath()
                 break;
             }
         }
+        //	Showing that if piece can't even move.
+		    if (checkingMv == 0){
+		    	cout << "Piece can't even move." << endl;
+			}
     }
     else if (name == "pawn" && color == 'b')
     {
+	//	Creating a variable that check is there is any move on the board.
+   	int checkingMv = 0;
+   	
         for (int i = 0; i < 8; i++)
         {
             if (b_pawn[i].index == pieceIndex)
@@ -566,6 +680,7 @@ void chessPiece::showPath()
 			        if (row < 8) {
 			            if (chessboard[row + 1][column] == "[ ]") {
 							chessboard[row + 1][column] = "*";
+							checkingMv = 1;
 						}
 						else break;
 			        }
@@ -574,6 +689,7 @@ void chessPiece::showPath()
 			        if (row == 1) {
 			            if (chessboard[row + 2][column] == "[ ]") {
 			            	chessboard[row + 2][column] = "*";
+			            	checkingMv = 1;
 			        	}
 					}
 				}
@@ -581,7 +697,13 @@ void chessPiece::showPath()
                 break;
             }
         }
+        //	Showing that if piece can't even move.
+		    if (checkingMv == 0){
+		    	cout << "Piece can't even move." << endl;
+			}
     }
+    
+    
 }
 void chessPiece::move()
 {
