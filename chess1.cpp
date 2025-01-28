@@ -149,6 +149,7 @@ void chessPiece::showPath()
 
         //	Creating a variable that check is there is any move on the board.
         int checkingMv = 0;
+        int wrongMv = 0;
 
         //	Moves for Queen.
 
@@ -158,7 +159,8 @@ void chessPiece::showPath()
         for (int k = column - 1; k >= 0; k--)
         { // Move left
             if (chessboard[row][k] != "[ ]")
-            { // Obstruction detected
+            { // Obstruction detected]
+            	int wrongMv = 0;
                 break;
             }
             chessboard[row][k] = "*"; // Mark as possible move
@@ -169,6 +171,7 @@ void chessPiece::showPath()
         { // Move right
             if (chessboard[row][k] != "[ ]")
             { // Obstruction detected
+            	int wrongMv = 0;
                 break;
             }
             chessboard[row][k] = "*"; // Mark as possible move
@@ -180,6 +183,7 @@ void chessPiece::showPath()
         { // Move up
             if (chessboard[k][column] != "[ ]")
             { // Obstruction detected
+            	int wrongMv = 0;
                 break;
             }
             chessboard[k][column] = "*"; // Mark as possible move
@@ -190,6 +194,7 @@ void chessPiece::showPath()
         { // Move down.
             if (chessboard[k][column] != "[ ]")
             { // Obstruction detected.
+            	int wrongMv = 0;
                 break;
             }
             chessboard[k][column] = "*"; // Mark as possible move
@@ -206,6 +211,7 @@ void chessPiece::showPath()
             if (chessboard[row + k][column + k] != "[ ]")
             {
                 break; // Obstruction detected.
+            	int wrongMv = 0;
             }
             chessboard[row + k][column + k] = "*"; // Marking valid move.
             checkingMv = 1;
@@ -214,11 +220,13 @@ void chessPiece::showPath()
         // Bottom left move.
         for (int k = 1; k < 8; k++)
         {
-            if (row + k > 7 || column - k < 0)
+            if (row + k > 7 || column - k < 0){
                 break; // Out of bounds check.
+			}
             if (chessboard[row + k][column - k] != "[ ]")
             {
                 break; // Obstruction detected.
+            	int wrongMv = 0;
             }
             chessboard[row + k][column - k] = "*"; // Marking valid move.
             checkingMv = 1;
@@ -232,6 +240,7 @@ void chessPiece::showPath()
             if (chessboard[row - k][column + k] != "[ ]")
             {
                 break; // Obstruction detected.
+            	int wrongMv = 0;
             }
             chessboard[row - k][column + k] = "*"; // Mark valid move.
             checkingMv = 1;
@@ -245,6 +254,7 @@ void chessPiece::showPath()
             if (chessboard[row - k][column - k] != "[ ]")
             {
                 break; // Obstruction detected.
+            	int wrongMv = 0;
             }
             chessboard[row - k][column - k] = "*"; // Marking valid move.
             checkingMv = 1;
