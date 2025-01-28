@@ -20,6 +20,9 @@ string pieceName = "";
 char pieceColor = ' ';
 int pieceIndex = 0;
 
+//	Creating a variable that check is there is any move on the board.
+int checkingMv = 0;
+
 // Coodinates
 int rowForSelection;
 int columnForSelection;
@@ -147,9 +150,6 @@ void chessPiece::showPath()
         cout << "Showing Path for Queen" << endl;
         // Todo >>>>>>>>>>>>>>>>
 
-        //	Creating a variable that check is there is any move on the board.
-        int checkingMv = 0;
-
         //	Moves for Queen.
 
         // Making a plus move.
@@ -258,8 +258,7 @@ void chessPiece::showPath()
     }
     else if (name == "bishop" && color == 'w')
     {
-        //	Creating a variable that check is there is any move on the board.
-        int checkingMv = 0;
+
         for (int i = 0; i < 2; i++)
         {
             if (w_bishop[i].index == pieceIndex)
@@ -326,8 +325,6 @@ void chessPiece::showPath()
     }
     else if (name == "rook" && color == 'w')
     {
-        //	Creating a variable that check is there is any move on the board.
-        int checkingMv = 0;
 
         for (int i = 0; i < 2; i++)
         {
@@ -389,8 +386,6 @@ void chessPiece::showPath()
     }
     else if (name == "knight" && color == 'w')
     {
-        //	Creating a variable that check is there is any move on the board.
-        int checkingMv = 0;
 
         for (int i = 0; i < 2; i++)
         {
@@ -429,8 +424,6 @@ void chessPiece::showPath()
     }
     else if (name == "pawn" && color == 'w')
     {
-        //	Creating a variable that check is there is any move on the board.
-        int checkingMv = 0;
 
         for (int i = 0; i < 8; i++)
         {
@@ -485,8 +478,6 @@ void chessPiece::showPath()
     }
     else if (name == "queen" && color == 'b')
     {
-        //	Creating a variable that check is there is any move on the board.
-        int checkingMv = 0;
 
         cout << "Showing Path for Queen" << endl;
         // Todo >>>>>>>>>>>>>>>>
@@ -590,8 +581,6 @@ void chessPiece::showPath()
     }
     else if (name == "bishop" && color == 'b')
     {
-        //	Creating a variable that check is there is any move on the board.
-        int checkingMv = 0;
 
         for (int i = 0; i < 2; i++)
         {
@@ -657,8 +646,6 @@ void chessPiece::showPath()
     }
     else if (name == "rook" && color == 'b')
     {
-        //	Creating a variable that check is there is any move on the board.
-        int checkingMv = 0;
 
         for (int k = 0; k < 2; k++)
         {
@@ -718,8 +705,6 @@ void chessPiece::showPath()
     }
     else if (name == "knight" && color == 'b')
     {
-        //	Creating a variable that check is there is any move on the board.
-        int checkingMv = 0;
 
         for (int i = 0; i < 2; i++)
         {
@@ -757,8 +742,6 @@ void chessPiece::showPath()
     }
     else if (name == "pawn" && color == 'b')
     {
-        //	Creating a variable that check is there is any move on the board.
-        int checkingMv = 0;
 
         for (int i = 0; i < 8; i++)
         {
@@ -1464,6 +1447,11 @@ int main()
                 {
                     // Resetting flag if right piece is selected
                     isWhiteSelected = false;
+                }
+                if(checkingMv == 0)
+                {
+                    // Presisting the flag
+                    isWhiteSelected = true;
                 }
 
             } while (isWhiteSelected);
