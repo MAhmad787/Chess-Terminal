@@ -757,7 +757,7 @@ void chessPiece::showPath()
 void chessPiece::move()
 {
     // setting move CHECKER TO 1 
-    moveChecker = 0;
+//    moveChecker = 0;
     // Show path for white pieces
     if (name == "king" && color == 'w')
     {
@@ -1103,6 +1103,7 @@ void chessPiece::move()
             {
                 cout << "Moving the Pawn" << i + 1 << endl;
                 // Todo >>>>>>>>>>>>>
+                
 
                 // Checking for valid move. And updating position.
                 if (chessboard[rowForMovement][columnForMovement] == "*")
