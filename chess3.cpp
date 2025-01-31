@@ -140,9 +140,6 @@ void initializePieces(chessPiece &w_king, chessPiece &w_queen, chessPiece w_bish
 
 void chessPiece::showPath()
 {
-    // Restting the selectionChecker variable.
-    selectionChecker = 0;
-
     // Show path for white pieces
     if (name == "king" && color == 'w')
     {
@@ -325,6 +322,11 @@ void chessPiece::showPath()
                 break;
             }
         }
+        //	Showing that if piece can't even move.
+        if (selectionChecker == 0)
+        {
+            cout << "Piece can't even move." << endl;
+        }
     }
     else if (name == "rook" && color == 'w')
     {
@@ -414,6 +416,11 @@ void chessPiece::showPath()
                 break;
             }
         }
+        //	Showing that if piece can't even move.
+        if (selectionChecker == 0)
+        {
+            cout << "Piece can't even move." << endl;
+        }
     }
     else if (name == "pawn" && color == 'w')
     {
@@ -454,6 +461,11 @@ void chessPiece::showPath()
                     break;
                 }
             }
+        }
+        //	Showing that if piece can't even move.
+        if (selectionChecker == 0)
+        {
+            cout << "Piece can't even move." << endl;
         }
     }
 
@@ -560,6 +572,11 @@ void chessPiece::showPath()
             chessboard[row - k][column - k] = "*"; // Marking valid move.
             selectionChecker = 1;
         }
+        //	Showing that if piece can't even move.
+        if (selectionChecker == 0)
+        {
+            cout << "Piece can't even move." << endl;
+        }
     }
     else if (name == "bishop" && color == 'b')
     {
@@ -620,6 +637,11 @@ void chessPiece::showPath()
                 break;
             }
         }
+        //	Showing that if piece can't even move.
+        if (selectionChecker == 0)
+        {
+            cout << "Piece can't even move." << endl;
+        }
     }
     else if (name == "rook" && color == 'b')
     {
@@ -676,6 +698,11 @@ void chessPiece::showPath()
                 break;
             }
         }
+        //	Showing that if piece can't even move.
+        if (selectionChecker == 0)
+        {
+            cout << "Piece can't even move." << endl;
+        }
     }
     else if (name == "knight" && color == 'b')
     {
@@ -708,6 +735,11 @@ void chessPiece::showPath()
 
                 break;
             }
+        }
+        //	Showing that if piece can't even move.
+        if (selectionChecker == 0)
+        {
+            cout << "Piece can't even move." << endl;
         }
     }
     else if (name == "pawn" && color == 'b')
@@ -756,8 +788,6 @@ void chessPiece::showPath()
 }
 void chessPiece::move()
 {
-    // setting move CHECKER TO 1 
-    moveChecker = 0;
     // Show path for white pieces
     if (name == "king" && color == 'w')
     {
@@ -1462,20 +1492,8 @@ int main()
                 // Move the selected white pawn .. Todo >>>>>>>>>>>>..
                 if (selectedPiece)
                 {
-                    // checking if function is running correctlyh6
-
-                    cout << "Move Fine" << endl;
-                    // Calling the move function
+                    // Resetting flag if right piece is selected
                     selectedPiece->move();
-                    isWhiteMoving = false;
-                }
-                // if move is not valid
-                //	Display wrong move selection.
-                    cout << "Move Checker: " << moveChecker << endl;
-                if (moveChecker != 0)
-                {
-                    isWhiteMoving = true;
-                    cout << "You entered wrong move! 1" << endl;
                 }
 
             } while (isWhiteMoving);
@@ -1547,21 +1565,8 @@ int main()
                 // Move the selected black pawn.. Todo >.>>>>>>
                 if (selectedPiece)
                 {
-                    // checking if function is running correctlyh6
-
-                    cout << "Move Fine" << endl;
                     // Calling the move function
                     selectedPiece->move();
-                    isBlackMoving = false;
-                }
-                // if move is not valid
-                //	Display wrong move selection.
-                    cout << "Move Checker: " << moveChecker << endl;
-                    
-                if (moveChecker != 0)
-                {
-                    isBlackMoving = true;
-                    cout << "You entered wrong move! 1" << endl;
                 }
             } while (isBlackMoving);
 
