@@ -140,7 +140,7 @@ void initializePieces(chessPiece &w_king, chessPiece &w_queen, chessPiece w_bish
 
 void chessPiece::showPath()
 {
-    // Show path for white pieces
+	// Show path for white pieces
     if (name == "king" && color == 'w')
     {
         cout << "Showing Path for King" << endl;
@@ -322,11 +322,6 @@ void chessPiece::showPath()
                 break;
             }
         }
-        //	Showing that if piece can't even move.
-        if (selectionChecker == 0)
-        {
-            cout << "Piece can't even move." << endl;
-        }
     }
     else if (name == "rook" && color == 'w')
     {
@@ -416,11 +411,6 @@ void chessPiece::showPath()
                 break;
             }
         }
-        //	Showing that if piece can't even move.
-        if (selectionChecker == 0)
-        {
-            cout << "Piece can't even move." << endl;
-        }
     }
     else if (name == "pawn" && color == 'w')
     {
@@ -461,11 +451,6 @@ void chessPiece::showPath()
                     break;
                 }
             }
-        }
-        //	Showing that if piece can't even move.
-        if (selectionChecker == 0)
-        {
-            cout << "Piece can't even move." << endl;
         }
     }
 
@@ -572,11 +557,6 @@ void chessPiece::showPath()
             chessboard[row - k][column - k] = "*"; // Marking valid move.
             selectionChecker = 1;
         }
-        //	Showing that if piece can't even move.
-        if (selectionChecker == 0)
-        {
-            cout << "Piece can't even move." << endl;
-        }
     }
     else if (name == "bishop" && color == 'b')
     {
@@ -637,11 +617,6 @@ void chessPiece::showPath()
                 break;
             }
         }
-        //	Showing that if piece can't even move.
-        if (selectionChecker == 0)
-        {
-            cout << "Piece can't even move." << endl;
-        }
     }
     else if (name == "rook" && color == 'b')
     {
@@ -698,11 +673,6 @@ void chessPiece::showPath()
                 break;
             }
         }
-        //	Showing that if piece can't even move.
-        if (selectionChecker == 0)
-        {
-            cout << "Piece can't even move." << endl;
-        }
     }
     else if (name == "knight" && color == 'b')
     {
@@ -735,11 +705,6 @@ void chessPiece::showPath()
 
                 break;
             }
-        }
-        //	Showing that if piece can't even move.
-        if (selectionChecker == 0)
-        {
-            cout << "Piece can't even move." << endl;
         }
     }
     else if (name == "pawn" && color == 'b')
@@ -785,6 +750,9 @@ void chessPiece::showPath()
     {
         cout << "Piece can't even move." << endl;
     }
+    
+    // Restting the selectionChecker variable.
+    selectionChecker = 0;
 }
 void chessPiece::move()
 {
@@ -1166,6 +1134,8 @@ void chessPiece::move()
     {
         cout << "You entered wrong move!" << endl;
     }
+    // Restting moveChecker variable.
+    moveChecker = 0;
 
     //	Reset all possible marks of pieces on board.
     for (int reset_row = 0; reset_row < 8; reset_row++)
