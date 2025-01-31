@@ -142,8 +142,8 @@ void chessPiece::showPath()
 {
     // Restting the selectionChecker variable.
     selectionChecker = 0;
-	
-	// Show path for white pieces
+
+    // Show path for white pieces
     if (name == "king" && color == 'w')
     {
         cout << "Showing Path for King" << endl;
@@ -753,10 +753,11 @@ void chessPiece::showPath()
     {
         cout << "Piece can't even move." << endl;
     }
-    
 }
 void chessPiece::move()
 {
+    // Resetting the move checker
+    moveChecker = 0;
     // Show path for white pieces
     if (name == "king" && color == 'w')
     {
@@ -1126,7 +1127,10 @@ void chessPiece::move()
                 break;
             }
             else
+            {
+                cout << "black pawn heheheh" << endl;
                 moveChecker = 1;
+            }
         }
     }
 
@@ -1134,18 +1138,8 @@ void chessPiece::move()
     if (moveChecker != 0)
     {
         cout << "You entered wrong move!" << endl;
-    }
-
-    //	Reset all possible marks of pieces on board.
-    for (int reset_row = 0; reset_row < 8; reset_row++)
-    {
-        for (int reset_col = 0; reset_col < 8; reset_col++)
-        {
-            if (chessboard[reset_row][reset_col] == "*")
-            {
-                chessboard[reset_row][reset_col] = "[ ]";
-            }
-        }
+        isBlackMoving = true;
+        isWhiteMoving = true;
     }
 }
 
@@ -1412,6 +1406,18 @@ int main()
                 string select;
                 do
                 {
+                    //	Reset all possible marks of pieces on board.
+                    for (int reset_row = 0; reset_row < 8; reset_row++)
+                    {
+                        for (int reset_col = 0; reset_col < 8; reset_col++)
+                        {
+                            if (chessboard[reset_row][reset_col] == "*")
+                            {
+                                chessboard[reset_row][reset_col] = "[ ]";
+                            }
+                        }
+                    }
+
                     cout << "Enter the position of the piece you want to move: ";
                     cin >> select;
 
@@ -1462,9 +1468,11 @@ int main()
                 if (selectedPiece)
                 {
                     // Resetting flag if right piece is selected
+                    isWhiteMoving = false;
                     selectedPiece->move();
                 }
 
+                display_chessboard(ROWS, COLUMNS, chessboard);
             } while (isWhiteMoving);
 
             // Display the updated chessboard
@@ -1485,6 +1493,19 @@ int main()
                 string select;
                 do
                 {
+
+                    //	Reset all possible marks of pieces on board.
+                    for (int reset_row = 0; reset_row < 8; reset_row++)
+                    {
+                        for (int reset_col = 0; reset_col < 8; reset_col++)
+                        {
+                            if (chessboard[reset_row][reset_col] == "*")
+                            {
+                                chessboard[reset_row][reset_col] = "[ ]";
+                            }
+                        }
+                    }
+
                     cout << "Enter the position of the piece you want to move: ";
                     cin >> select;
 
@@ -1514,8 +1535,8 @@ int main()
             } while (isBlackSelected);
 
             // Display the updated chessboard
-            display_chessboard(ROWS, COLUMNS, chessboard);
 
+            display_chessboard(ROWS, COLUMNS, chessboard);
             // Moving the black pawn
             do
             {
@@ -1535,8 +1556,11 @@ int main()
                 if (selectedPiece)
                 {
                     // Calling the move function
+                    isBlackMoving = false;
                     selectedPiece->move();
                 }
+                display_chessboard(ROWS, COLUMNS, chessboard);
+
             } while (isBlackMoving);
 
             // Display the updated chessboard
