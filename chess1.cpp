@@ -1138,8 +1138,6 @@ void chessPiece::move()
     if (moveChecker != 0)
     {
         cout << "You entered wrong move!" << endl;
-        isBlackMoving = true;
-        isWhiteMoving = true;
     }
 }
 
