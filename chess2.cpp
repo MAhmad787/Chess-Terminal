@@ -140,6 +140,9 @@ void initializePieces(chessPiece &w_king, chessPiece &w_queen, chessPiece w_bish
 
 void chessPiece::showPath()
 {
+    // Restting the selectionChecker variable.
+    selectionChecker = 0;
+	
 	// Show path for white pieces
     if (name == "king" && color == 'w')
     {
@@ -751,8 +754,6 @@ void chessPiece::showPath()
         cout << "Piece can't even move." << endl;
     }
     
-    // Restting the selectionChecker variable.
-    selectionChecker = 0;
 }
 void chessPiece::move()
 {
@@ -1134,8 +1135,6 @@ void chessPiece::move()
     {
         cout << "You entered wrong move!" << endl;
     }
-    // Restting moveChecker variable.
-    moveChecker = 0;
 
     //	Reset all possible marks of pieces on board.
     for (int reset_row = 0; reset_row < 8; reset_row++)
