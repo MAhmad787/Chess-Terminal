@@ -20,7 +20,7 @@ string pieceName = "";
 char pieceColor = ' ';
 int pieceIndex = 0;
 
-//	Creating a variable that check is there is any move on the board.
+//	Variables for checking Valid Selection and Movement
 int selectionChecker = 0;
 int moveChecker = 0;
 
@@ -33,7 +33,7 @@ int columnForMovement;
 // Declare the Chessboard
 string chessboard[ROWS][COLUMNS];
 
-// Positons of the chessboard pieces on the board
+// Default Positons of the chessboard pieces on the board
 // White Pieces
 int w_king_position[1][2] = {{7, 4}};           // E1
 int w_queen_position[1][2] = {{7, 3}};          // D1
@@ -68,18 +68,14 @@ int b_pawn_position[8][2] = {                   // A7-H7
 
 struct chessPiece
 {
-    /* data */
     string name;
     char color;
     int row;
     int column;
     bool isAlive = true;
     int index;
-    int movesCounter = 0;
-    bool isKing = false;
     void showPath();
     void move();
-    void canCapture();
 };
 
 // Pointer for identifing piece
@@ -106,33 +102,33 @@ chessPiece b_pawn[8];
 void initializePieces(chessPiece &w_king, chessPiece &w_queen, chessPiece w_bishop[], chessPiece w_rook[], chessPiece w_knight[], chessPiece w_pawn[], chessPiece &b_king, chessPiece &b_queen, chessPiece b_bishop[], chessPiece b_rook[], chessPiece b_knight[], chessPiece b_pawn[])
 {
     // White Pieces
-    w_king = {"king", 'w', w_king_position[0][0], w_king_position[0][1], true, 1, 0, true};
-    w_queen = {"queen", 'w', w_queen_position[0][0], w_queen_position[0][1], true, 1, 0};
+    w_king = {"K", 'w', w_king_position[0][0], w_king_position[0][1], true, 1};
+    w_queen = {"Q", 'w', w_queen_position[0][0], w_queen_position[0][1], true, 1};
 
     for (int i = 0; i < 2; i++)
     {
-        w_bishop[i] = {"bishop", 'w', w_bishop_position[i][0], w_bishop_position[i][1], true, i + 1, 0};
-        w_rook[i] = {"rook", 'w', w_rook_position[i][0], w_rook_position[i][1], true, i + 1, 0};
-        w_knight[i] = {"knight", 'w', w_knight_position[i][0], w_knight_position[i][1], true, i + 1, 0};
+        w_bishop[i] = {"B", 'w', w_bishop_position[i][0], w_bishop_position[i][1], true, i + 1};
+        w_rook[i] = {"R", 'w', w_rook_position[i][0], w_rook_position[i][1], true, i + 1};
+        w_knight[i] = {"H", 'w', w_knight_position[i][0], w_knight_position[i][1], true, i + 1};
     };
 
     for (int i = 0; i < 8; i++)
     {
-        w_pawn[i] = {"pawn", 'w', w_pawn_position[i][0], w_pawn_position[i][1], true, i + 1, 0};
+        w_pawn[i] = {"P", 'w', w_pawn_position[i][0], w_pawn_position[i][1], true, i + 1};
     }
 
     // Black Pieces
-    b_king = {"king", 'b', b_king_position[0][0], b_king_position[0][1], true, 1, 0, true};
-    b_queen = {"queen", 'b', b_queen_position[0][0], b_queen_position[0][1], true, 1, 0};
+    b_king = {"K", 'b', b_king_position[0][0], b_king_position[0][1], true, 1};
+    b_queen = {"Q", 'b', b_queen_position[0][0], b_queen_position[0][1], true, 1};
     for (int i = 0; i < 2; i++)
     {
-        b_bishop[i] = {"bishop", 'b', b_bishop_position[i][0], b_bishop_position[i][1], true, i + 1, 0};
-        b_rook[i] = {"rook", 'b', b_rook_position[i][0], b_rook_position[i][1], true, i + 1, 0};
-        b_knight[i] = {"knight", 'b', b_knight_position[i][0], b_knight_position[i][1], true, i + 1, 0};
+        b_bishop[i] = {"B", 'b', b_bishop_position[i][0], b_bishop_position[i][1], true, i + 1};
+        b_rook[i] = {"R", 'b', b_rook_position[i][0], b_rook_position[i][1], true, i + 1};
+        b_knight[i] = {"H", 'b', b_knight_position[i][0], b_knight_position[i][1], true, i + 1};
     }
     for (int i = 0; i < 8; i++)
     {
-        b_pawn[i] = {"pawn", 'b', b_pawn_position[i][0], b_pawn_position[i][1], true, i + 1, 0};
+        b_pawn[i] = {"P", 'b', b_pawn_position[i][0], b_pawn_position[i][1], true, i + 1};
     }
 }
 
@@ -144,12 +140,12 @@ void chessPiece::showPath()
     selectionChecker = 0;
 
     // Show path for white pieces
-    if (name == "king" && color == 'w')
+    if (name == "K" && color == 'w')
     {
         cout << "Showing Path for King" << endl;
         // Todo >>>>>>>>>>>>>>>>
     }
-    else if (name == "queen" && color == 'w')
+    else if (name == "Q" && color == 'w')
     {
         cout << "Showing Path for Queen" << endl;
         // Todo >>>>>>>>>>>>>>>>
@@ -258,7 +254,7 @@ void chessPiece::showPath()
             selectionChecker = 1;
         }
     }
-    else if (name == "bishop" && color == 'w')
+    else if (name == "B" && color == 'w')
     {
 
         for (int i = 0; i < 2; i++)
@@ -326,7 +322,7 @@ void chessPiece::showPath()
             }
         }
     }
-    else if (name == "rook" && color == 'w')
+    else if (name == "R" && color == 'w')
     {
 
         for (int i = 0; i < 2; i++)
@@ -382,7 +378,7 @@ void chessPiece::showPath()
             }
         }
     }
-    else if (name == "knight" && color == 'w')
+    else if (name == "H" && color == 'w')
     {
 
         for (int i = 0; i < 2; i++)
@@ -415,7 +411,7 @@ void chessPiece::showPath()
             }
         }
     }
-    else if (name == "pawn" && color == 'w')
+    else if (name == "P" && color == 'w')
     {
 
         for (int i = 0; i < 8; i++)
@@ -458,12 +454,12 @@ void chessPiece::showPath()
     }
 
     // Show path for black pieces
-    if (name == "king" && color == 'b')
+    if (name == "K" && color == 'b')
     {
         cout << "Showing Path for King" << endl;
         // Todo >>>>>>>>>>>>>>>>
     }
-    else if (name == "queen" && color == 'b')
+    else if (name == "Q" && color == 'b')
     {
 
         cout << "Showing Path for Queen" << endl;
@@ -561,7 +557,7 @@ void chessPiece::showPath()
             selectionChecker = 1;
         }
     }
-    else if (name == "bishop" && color == 'b')
+    else if (name == "B" && color == 'b')
     {
 
         for (int i = 0; i < 2; i++)
@@ -621,7 +617,7 @@ void chessPiece::showPath()
             }
         }
     }
-    else if (name == "rook" && color == 'b')
+    else if (name == "R" && color == 'b')
     {
 
         for (int k = 0; k < 2; k++)
@@ -677,7 +673,7 @@ void chessPiece::showPath()
             }
         }
     }
-    else if (name == "knight" && color == 'b')
+    else if (name == "H" && color == 'b')
     {
 
         for (int i = 0; i < 2; i++)
@@ -710,7 +706,7 @@ void chessPiece::showPath()
             }
         }
     }
-    else if (name == "pawn" && color == 'b')
+    else if (name == "P" && color == 'b')
     {
 
         for (int i = 0; i < 8; i++)
@@ -756,23 +752,24 @@ void chessPiece::showPath()
 }
 void chessPiece::move()
 {
+    cout << "name " << name;
+    cout << "color " << color;
     // Resetting the move checker
     moveChecker = 0;
+    cout << "move start" << moveChecker << endl;
+
     // Show path for white pieces
-    if (name == "king" && color == 'w')
+    if (name == "K" && color == 'w')
     {
         cout << "Moving the King to " << rowForMovement << " and " << columnForMovement << endl;
         // Todo >>>>>>>>>>>>>>>>
 
-        // Update the movesCounter
-        movesCounter++;
-
-        // Resetting the pieceName, pieceColor and pieceIndex
+        // Updat        // Resetting the pieceName, pieceColor and pieceIndex
         pieceName = "";
         pieceColor = ' ';
-        pieceIndex = 0;
+        // pieceIndex = 0;
     }
-    else if (name == "queen" && color == 'w')
+    else if (name == "Q" && color == 'w')
     {
         cout << "Moving the Queen" << endl;
         // Todo >>>>>>>>>>>>>>>>
@@ -781,7 +778,7 @@ void chessPiece::move()
         if (chessboard[rowForMovement][columnForMovement] == "*")
         {
             // Updating Queen Position.
-            chessboard[rowForMovement][columnForMovement] = "wqueen";
+            chessboard[rowForMovement][columnForMovement] = "wQ";
 
             // Removing previous positions.
             chessboard[row][column] = "[ ]";
@@ -789,19 +786,14 @@ void chessPiece::move()
             // Updating row and column.
             row = rowForMovement;
             column = columnForMovement;
-        }
-        else
             moveChecker = 1;
-
-        // Update the movesCounter
-        movesCounter++;
-
-        // Resetting the pieceName, pieceColor and pieceIndex
+        }
+        // Updat        // Resetting the pieceName, pieceColor and pieceIndex
         pieceName = "";
         pieceColor = ' ';
-        pieceIndex = 0;
+        // pieceIndex = 0;
     }
-    else if (name == "bishop" && color == 'w')
+    else if (name == "B" && color == 'w')
     {
         for (int i = 0; i < 2; i++)
         {
@@ -814,7 +806,7 @@ void chessPiece::move()
                 if (chessboard[rowForMovement][columnForMovement] == "*")
                 {
                     //	Updating bishop position.
-                    chessboard[rowForMovement][columnForMovement] = "wbishop";
+                    chessboard[rowForMovement][columnForMovement] = "wB";
 
                     //	Resetting previous position.
                     chessboard[row][column] = "[ ]";
@@ -823,22 +815,18 @@ void chessPiece::move()
 
                     row = rowForMovement;
                     column = columnForMovement;
-                }
-                else
                     moveChecker = 1;
+                }
 
-                // Update the movesCounter
-                movesCounter++;
-
-                // Resetting the pieceName, pieceColor and pieceIndex
+                // Updat                      // Resetting the pieceName, pieceColor and pieceIndex
                 pieceName = "";
                 pieceColor = ' ';
-                pieceIndex = 0;
+                // pieceIndex = 0;
                 break;
             }
         }
     }
-    else if (name == "rook" && color == 'w')
+    else if (name == "R" && color == 'w')
     {
         for (int i = 0; i < 2; i++)
         {
@@ -851,7 +839,7 @@ void chessPiece::move()
                 if (chessboard[rowForMovement][columnForMovement] == "*")
                 {
                     //	Updating position of 'wrook'.
-                    chessboard[rowForMovement][columnForMovement] = "wrook";
+                    chessboard[rowForMovement][columnForMovement] = "wK";
 
                     // Resetting the previous name.
                     chessboard[row][column] = "[ ]";
@@ -859,22 +847,18 @@ void chessPiece::move()
                     //	Updating row and column.
                     row = rowForMovement;
                     column = columnForMovement;
-                }
-                else
                     moveChecker = 1;
+                }
 
-                // Update the movesCounter
-                movesCounter++;
-
-                // Resetting the pieceName, pieceColor and pieceIndex
+                // Updat                      // Resetting the pieceName, pieceColor and pieceIndex
                 pieceName = "";
                 pieceColor = ' ';
-                pieceIndex = 0;
+                // pieceIndex = 0;
                 break;
             }
         }
     }
-    else if (name == "knight" && color == 'w')
+    else if (name == "H" && color == 'w')
     {
         for (int i = 0; i < 2; i++)
         {
@@ -887,7 +871,7 @@ void chessPiece::move()
                 if (chessboard[rowForMovement][columnForMovement] == "*")
                 {
                     // Updating Knight positions.
-                    chessboard[rowForMovement][columnForMovement] = "wknight";
+                    chessboard[rowForMovement][columnForMovement] = "wH";
 
                     //	Resetting previous move.
                     chessboard[row][column] = "[ ]";
@@ -895,70 +879,60 @@ void chessPiece::move()
                     //	Updating Knight rows and column.
                     row = rowForMovement;
                     column = columnForMovement;
-                }
-                else
                     moveChecker = 1;
+                }
 
-                // Update the movesCounter
-                movesCounter++;
-
-                // Resetting the pieceName, pieceColor and pieceIndex
+                // Updat                      // Resetting the pieceName, pieceColor and pieceIndex
                 pieceName = "";
                 pieceColor = ' ';
-                pieceIndex = 0;
+                // pieceIndex = 0;
                 break;
             }
         }
     }
-    else if (name == "pawn" && color == 'w')
+    else if (name == "P" && color == 'w')
     {
         for (int i = 0; i < 8; i++)
         {
+            cout << "index" << pieceIndex;
             if (w_pawn[i].index == pieceIndex)
             {
                 cout << "Moving the Pawn" << i + 1 << endl;
                 // Todo >>>>>>>>>>>>>
-
+                cout << chessboard[rowForMovement][columnForMovement] << "hello";
                 // Checking for valid move. Plus updating its position.
                 if (chessboard[rowForMovement][columnForMovement] == "*")
                 {
-                    chessboard[rowForMovement][columnForMovement] = "wpawn"; //	Sugguest me what should I write here instead of "wpawn" ? Beacuse pieceName is pawn.
+                    chessboard[rowForMovement][columnForMovement] = "wP"; //	Sugguest me what should I write here instead of "wpawn" ? Beacuse pieceName is pawn.
 
                     // 	Resetting previous position.
                     chessboard[row][column] = "[ ]";
                     row = rowForMovement;
                     column = columnForMovement;
-                }
-                else
                     moveChecker = 1;
+                }
 
-                // Update the movesCounter
-                movesCounter++;
-
-                // Resetting the pieceName, pieceColor and pieceIndex
+                // Updat                      // Resetting the pieceName, pieceColor and pieceIndex
                 pieceName = "";
                 pieceColor = ' ';
-                pieceIndex = 0;
+                // pieceIndex = 0;
                 break;
             }
         }
     }
 
     // Show path for black pieces
-    if (name == "king" && color == 'b')
+    if (name == "K" && color == 'b')
     {
         cout << "Moving the King" << endl;
         // Todo >>>>>>>>>>>>>>>>
 
-        // Update the movesCounter
-        movesCounter++;
-
-        // Resetting the pieceName, pieceColor and pieceIndex
+        // Updat        // Resetting the pieceName, pieceColor and pieceIndex
         pieceName = "";
         pieceColor = ' ';
-        pieceIndex = 0;
+        // pieceIndex = 0;
     }
-    else if (name == "queen" && color == 'b')
+    else if (name == "Q" && color == 'b')
     {
         cout << "Moving the Queen" << endl;
         // Todo >>>>>>>>>>>>>>>>
@@ -967,7 +941,7 @@ void chessPiece::move()
         if (chessboard[rowForMovement][columnForMovement] == "*")
         {
             // Updating Queen Position.
-            chessboard[rowForMovement][columnForMovement] = "wqueen";
+            chessboard[rowForMovement][columnForMovement] = "wQ";
 
             // Removing previous positions.
             chessboard[row][column] = "[ ]";
@@ -975,19 +949,15 @@ void chessPiece::move()
             // Updating row and column.
             row = rowForMovement;
             column = columnForMovement;
-        }
-        else
             moveChecker = 1;
+        }
 
-        // Update the movesCounter
-        movesCounter++;
-
-        // Resetting the pieceName, pieceColor and pieceIndex
+        // Updat        // Resetting the pieceName, pieceColor and pieceIndex
         pieceName = "";
         pieceColor = ' ';
-        pieceIndex = 0;
+        // pieceIndex = 0;
     }
-    else if (name == "bishop" && color == 'b')
+    else if (name == "B" && color == 'b')
     {
         for (int i = 0; i < 2; i++)
         {
@@ -1000,7 +970,7 @@ void chessPiece::move()
                 if (chessboard[rowForMovement][columnForMovement] == "*")
                 {
                     //	Updating bishop position.
-                    chessboard[rowForMovement][columnForMovement] = "wbishop";
+                    chessboard[rowForMovement][columnForMovement] = "wB";
 
                     //	Resetting previous position.
                     chessboard[row][column] = "[ ]";
@@ -1009,22 +979,18 @@ void chessPiece::move()
 
                     row = rowForMovement;
                     column = columnForMovement;
-                }
-                else
                     moveChecker = 1;
+                }
 
-                // Update the movesCounter
-                movesCounter++;
-
-                // Resetting the pieceName, pieceColor and pieceIndex
+                // Updat                      // Resetting the pieceName, pieceColor and pieceIndex
                 pieceName = "";
                 pieceColor = ' ';
-                pieceIndex = 0;
+                // pieceIndex = 0;
                 break;
             }
         }
     }
-    else if (name == "rook" && color == 'b')
+    else if (name == "R" && color == 'b')
     {
         for (int i = 0; i < 2; i++)
         {
@@ -1036,7 +1002,7 @@ void chessPiece::move()
                 //	Updating position of 'wrook'.
                 if (chessboard[rowForMovement][columnForMovement] == "*")
                 {
-                    chessboard[rowForMovement][columnForMovement] = "brook";
+                    chessboard[rowForMovement][columnForMovement] = "bR";
 
                     // Resetting the previous name.
                     chessboard[row][column] = "[ ]";
@@ -1044,22 +1010,18 @@ void chessPiece::move()
                     //	Updating row and column.
                     row = rowForMovement;
                     column = columnForMovement;
-                }
-                else
                     moveChecker = 1;
+                }
 
-                // Update the movesCounter
-                movesCounter++;
-
-                // Resetting the pieceName, pieceColor and pieceIndex
+                // Updat                      // Resetting the pieceName, pieceColor and pieceIndex
                 pieceName = "";
                 pieceColor = ' ';
-                pieceIndex = 0;
+                // pieceIndex = 0;
                 break;
             }
         }
     }
-    else if (name == "knight" && color == 'b')
+    else if (name == "H" && color == 'b')
     {
         for (int i = 0; i < 2; i++)
         {
@@ -1072,7 +1034,7 @@ void chessPiece::move()
                 if (chessboard[rowForMovement][columnForMovement] == "*")
                 {
                     // Updating Knight positions.
-                    chessboard[rowForMovement][columnForMovement] = "bknight";
+                    chessboard[rowForMovement][columnForMovement] = "bH";
                     cout << "Vaild..";
                     //	Resetting previous move.
                     chessboard[row][column] = "[ ]";
@@ -1080,22 +1042,18 @@ void chessPiece::move()
                     //	Updating Knight rows and column.
                     row = rowForMovement;
                     column = columnForMovement;
-                }
-                else
                     moveChecker = 1;
+                }
 
-                // Update the movesCounter
-                movesCounter++;
-
-                // Resetting the pieceName, pieceColor and pieceIndex
+                // Updat                      // Resetting the pieceName, pieceColor and pieceIndex
                 pieceName = "";
                 pieceColor = ' ';
-                pieceIndex = 0;
+                // pieceIndex = 0;
                 break;
             }
         }
     }
-    else if (name == "pawn" && color == 'b')
+    else if (name == "P" && color == 'b')
     {
         for (int i = 0; i < 8; i++)
         {
@@ -1107,40 +1065,30 @@ void chessPiece::move()
                 // Checking for valid move. And updating position.
                 if (chessboard[rowForMovement][columnForMovement] == "*")
                 {
-                    chessboard[rowForMovement][columnForMovement] = "bpawn"; //	Sugguest me what should I write here instead of "wpawn" ? Beacuse pieceName is pawn.
+                    chessboard[rowForMovement][columnForMovement] = "bP"; //	Sugguest me what should I write here instead of "wpawn" ? Beacuse pieceName is pawn.
 
                     // 	Resetting previous position.
                     chessboard[row][column] = "[ ]";
                     row = rowForMovement;
                     column = columnForMovement;
-                }
-                else
                     moveChecker = 1;
+                }
 
-                // Update the movesCounter
-                movesCounter++;
-
-                // Resetting the pieceName, pieceColor and pieceIndex
+                // Updat                      // Resetting the pieceName, pieceColor and pieceIndex
                 pieceName = "";
                 pieceColor = ' ';
-                pieceIndex = 0;
+                // pieceIndex = 0;
                 break;
-            }
-            else
-            {
-                cout << "black pawn heheheh" << endl;
-                moveChecker = 1;
             }
         }
     }
-
     //	Display wrong move selection.
-    if (moveChecker != 0)
-    {
-        cout << "You entered wrong move!" << endl;
-    }
+    // if (moveChecker == 0)
+    // {
+    //     cout << "You entered wrong move!" << endl;
+    cout << "move end" << moveChecker << name << endl;
+    // }
 }
-
 // Place the pieces on the chessboard
 void place_pieces(string chessboard[ROWS][COLUMNS], chessPiece &w_king, chessPiece &w_queen, chessPiece w_bishop[], chessPiece w_rook[], chessPiece w_knight[], chessPiece w_pawn[], chessPiece &b_king, chessPiece &b_queen, chessPiece b_bishop[], chessPiece b_rook[], chessPiece b_knight[], chessPiece b_pawn[])
 {
@@ -1181,6 +1129,21 @@ void generate_chessboard(string chessboard[ROWS][COLUMNS])
         for (int j = 0; j < COLUMNS; j++)
         {
             chessboard[i][j] = "[ ]";
+        }
+    }
+}
+// Reset the Board
+void resetChessBoard(string chessboard[ROWS][COLUMNS])
+{
+    //	Reset all possible marks of pieces on board.
+    for (int reset_row = 0; reset_row < 8; reset_row++)
+    {
+        for (int reset_col = 0; reset_col < 8; reset_col++)
+        {
+            if (chessboard[reset_row][reset_col] == "*")
+            {
+                chessboard[reset_row][reset_col] = "[ ]";
+            }
         }
     }
 }
@@ -1404,17 +1367,6 @@ int main()
                 string select;
                 do
                 {
-                    //	Reset all possible marks of pieces on board.
-                    for (int reset_row = 0; reset_row < 8; reset_row++)
-                    {
-                        for (int reset_col = 0; reset_col < 8; reset_col++)
-                        {
-                            if (chessboard[reset_row][reset_col] == "*")
-                            {
-                                chessboard[reset_row][reset_col] = "[ ]";
-                            }
-                        }
-                    }
 
                     cout << "Enter the position of the piece you want to move: ";
                     cin >> select;
@@ -1451,6 +1403,7 @@ int main()
             // Moving the white pawn
             do
             {
+                isWhiteMoving = true;
                 string move;
                 do
                 {
@@ -1465,14 +1418,17 @@ int main()
                 // Move the selected white pawn .. Todo >>>>>>>>>>>>..
                 if (selectedPiece)
                 {
-                    // Resetting flag if right piece is selected
-                    isWhiteMoving = false;
+                    // Calling the move function
                     selectedPiece->move();
+                    isWhiteMoving = false;
                 }
-
-                display_chessboard(ROWS, COLUMNS, chessboard);
+                if (moveChecker == 0)
+                {
+                    isWhiteMoving = true;
+                }
             } while (isWhiteMoving);
-
+            // Reset the board
+            resetChessBoard(chessboard);
             // Display the updated chessboard
             display_chessboard(ROWS, COLUMNS, chessboard);
 
@@ -1491,18 +1447,6 @@ int main()
                 string select;
                 do
                 {
-
-                    //	Reset all possible marks of pieces on board.
-                    for (int reset_row = 0; reset_row < 8; reset_row++)
-                    {
-                        for (int reset_col = 0; reset_col < 8; reset_col++)
-                        {
-                            if (chessboard[reset_row][reset_col] == "*")
-                            {
-                                chessboard[reset_row][reset_col] = "[ ]";
-                            }
-                        }
-                    }
 
                     cout << "Enter the position of the piece you want to move: ";
                     cin >> select;
@@ -1538,6 +1482,7 @@ int main()
             // Moving the black pawn
             do
             {
+                isBlackMoving = true;
                 string move;
                 do
                 {
@@ -1554,12 +1499,17 @@ int main()
                 if (selectedPiece)
                 {
                     // Calling the move function
-                    isBlackMoving = false;
                     selectedPiece->move();
+                    isBlackMoving = false;
                 }
-                display_chessboard(ROWS, COLUMNS, chessboard);
+                if (moveChecker == 0)
+                {
+                    isBlackMoving = true;
+                }
 
             } while (isBlackMoving);
+            // Reset the board
+            resetChessBoard(chessboard);
 
             // Display the updated chessboard
             display_chessboard(ROWS, COLUMNS, chessboard);
@@ -1574,13 +1524,5 @@ int main()
             return 1;
         }
     }
-
-    // if (!isPlaying)
-    // {
-    //     cout << "Game Over" << endl;
-    // }
-    // cout << selectPiece(7, 4);
-    // b_rook[0].showPath();
-    // cout << w_king.index;
     return 0;
 }
