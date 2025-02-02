@@ -730,11 +730,8 @@ void chessPiece::showPath()
 }
 void chessPiece::move()
 {
-    cout << "name " << name;
-    cout << "color " << color;
     // Resetting the move checker
     moveChecker = 0;
-    cout << "move start" << moveChecker << endl;
 
     // Show path for white pieces
     if (name == "K" && color == 'w')
@@ -857,11 +854,9 @@ void chessPiece::move()
     {
         for (int i = 0; i < 8; i++)
         {
-            cout << "index" << pieceIndex;
             if (w_pawn[i].index == pieceIndex)
             {
                 cout << "Moving the Pawn" << i + 1 << endl;
-                cout << chessboard[rowForMovement][columnForMovement] << "hello";
                 // Checking for valid move. Plus updating its position.
                 if (chessboard[rowForMovement][columnForMovement] == "*")
                 {
@@ -985,7 +980,6 @@ void chessPiece::move()
                 {
                     // Updating Knight positions.
                     chessboard[rowForMovement][columnForMovement] = "bH";
-                    cout << "Vaild..";
                     //	Resetting previous move.
                     chessboard[row][column] = "[ ]";
 
@@ -1313,7 +1307,7 @@ void epicEntry() {
         	cout << endl << "The game begins... May the best strategist win!" << endl << endl;
             break;
         } else if (choice == "2") {
-        	cout << endl << "Farewell, brave soul. The board will await your return.";
+        	cout << endl << "Farewell, brave soul. The board will await your return." << endl;
             exit(0);	// Exit the program
         } else {
         	cout << endl << "Invalid choice. Choose wisely, for the fate of the game depends on it!";
