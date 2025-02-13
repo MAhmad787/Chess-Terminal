@@ -1414,6 +1414,7 @@ int main()
                     selectedPiece->move();
                     isWhiteMoving = false;
                 }
+                if(selectedPiece)
                 if (moveChecker == 0)
                 {
                     isWhiteMoving = true;
@@ -1451,6 +1452,7 @@ int main()
 
                 // Select the piece
                 selectedPiece = selectPiece(rowForSelection, columnForSelection, pieceName, pieceColor, pieceIndex);
+
                 if (selectedPiece)
                 {
                     // Resetting flag if right piece is selected
